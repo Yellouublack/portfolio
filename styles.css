@@ -15,16 +15,20 @@ body {
 }
 
 header {
-    background: #fff;
-    color: #000;
+    background: #007BFF;
+    color: #fff;
     padding-top: 30px;
     min-height: 70px;
-    border-bottom: #007BFF 3px solid;
+    border-bottom: none;
     text-align: center;
 }
 
-header h1 {
+header .header-title {
+    background: #fff;
     color: #007BFF;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
 }
 
 section {
@@ -54,9 +58,14 @@ ul li {
     color: #007BFF;
 }
 
+.highlight {
+    color: #007BFF;
+    font-weight: bold;
+}
+
 footer {
-    background: #007BFF;
-    color: #fff;
+    background: none;
+    color: #000;
     text-align: center;
     padding: 10px 0;
 }
