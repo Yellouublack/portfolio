@@ -1,99 +1,62 @@
 body {
     font-family: Arial, sans-serif;
+    line-height: 1.6;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background: #fff;
+    color: #000;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+    padding: 20px;
 }
 
 header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-size: 24px;
-    margin-left: 20px;
-}
-
-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-}
-
-nav ul li {
-    margin-right: 20px;
-}
-
-nav ul li a {
-    color: #fff;
-    text-decoration: none;
-}
-
-.search-bar {
-    margin-right: 20px;
-}
-
-.search-bar input {
-    padding: 5px;
-}
-
-.search-bar button {
-    padding: 5px;
-}
-
-main {
-    padding: 20px;
-}
-
-.product-listing {
-    margin-bottom: 40px;
-}
-
-.product-listing .filters {
-    margin-bottom: 20px;
-}
-
-.product-listing .products {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.product-listing .product {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    margin-right: 20px;
-    margin-bottom: 20px;
-    padding: 10px;
-    width: 200px;
+    background: #fff;
+    color: #000;
+    padding-top: 30px;
+    min-height: 70px;
+    border-bottom: #007BFF 3px solid;
     text-align: center;
 }
 
-.cart, .checkout, .account, .order-history, .track-order {
-    margin-bottom: 40px;
+header h1 {
+    color: #007BFF;
 }
 
-.cart .cart-items, .order-history .orders {
-    margin-bottom: 20px;
+section {
+    margin: 20px 0;
 }
 
-.cart-summary, .checkout form, .account form, .track-order form {
-    background-color: #fff;
-    padding: 20px;
-    border: 1px solid #ddd;
+section h2 {
+    color: #007BFF;
+    border-bottom: 2px solid #007BFF;
+    padding-bottom: 10px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    padding: 5px 0;
+}
+
+.project {
+    margin: 10px 0;
+}
+
+.project h3 {
+    color: #007BFF;
 }
 
 footer {
-    background-color: #333;
+    background: #007BFF;
     color: #fff;
     text-align: center;
     padding: 10px 0;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
 }
