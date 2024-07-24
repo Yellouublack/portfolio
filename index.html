@@ -3,154 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>T-Shirt Brand E-Commerce</title>
+    <title>Nidhish Nandan Vijayakumar - Portfolio</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <div class="logo">T-Shirt Brand</div>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="shop.html">Shop</a></li>
-                <li><a href="cart.html">Cart</a></li>
-                <li><a href="account.html">Account</a></li>
-            </ul>
-        </nav>
-        <div class="search-bar">
-            <input type="text" placeholder="Search for products...">
-            <button>Search</button>
+        <div class="container">
+            <h1>Nidhish Nandan Vijayakumar</h1>
+            <p>Skilled MTech CAD/CAM professional with expertise in complex mechanical component modeling and manufacturing using SolidWorks, Creo, and CATIA. Experience in CNC programming, 3D printing, robot handling, and process planning. Strong knowledge of manufacturing processes, materials science, project management, and problem-solving skills.</p>
         </div>
     </header>
 
-    <main>
-        <section class="product-listing">
-            <h1>Shop T-Shirts</h1>
-            <div class="filters">
-                <select id="sort">
-                    <option value="default">Sort by</option>
-                    <option value="price-asc">Price: Low to High</option>
-                    <option value="price-desc">Price: High to Low</option>
-                </select>
-                <select id="size">
-                    <option value="all">All Sizes</option>
-                    <option value="small">Small</option>
-                    <option value="medium">Medium</option>
-                    <option value="large">Large</option>
-                </select>
-            </div>
-            <div class="products">
-                <div class="product">
-                    <img src="tshirt1.jpg" alt="T-Shirt 1">
-                    <h2>T-Shirt 1</h2>
-                    <p>$19.99</p>
-                    <button>Add to Cart</button>
-                </div>
-                <div class="product">
-                    <img src="tshirt2.jpg" alt="T-Shirt 2">
-                    <h2>T-Shirt 2</h2>
-                    <p>$24.99</p>
-                    <button>Add to Cart</button>
-                </div>
-                <!-- Add more products as needed -->
-            </div>
-        </section>
+    <section id="skills">
+        <div class="container">
+            <h2>Technical Skills</h2>
+            <ul>
+                <li>Computer-Aided Design (CAD) software: SolidWorks, Creo, Siemens NX, AutoCAD, Fusion 360, CATIA</li>
+                <li>Meshing software: Altair HyperMesh</li>
+                <li>Finite Element Analysis (FEA) software: ANSYS APDL, ANSYS Workbench, SIMULATION in FUSION360</li>
+                <li>Manufacturing: Stereolithography (SLA), Selective Laser Melting (SLM), Fused Deposition Modeling (FDM), Selective Laser Sintering (SLS)</li>
+                <li>Other Skills: IoT, Automation, Server building, building websites</li>
+            </ul>
+        </div>
+    </section>
 
-        <section class="cart">
-            <h1>Shopping Cart</h1>
-            <div class="cart-items">
-                <!-- Cart items will be dynamically generated here -->
+    <section id="projects">
+        <div class="container">
+            <h2>Technical Projects</h2>
+            <div class="project">
+                <h3>Design and Additive Manufacturing of Bio-Inspired Lattice Sandwich Structure using SLM 3D printing</h3>
+                <p>July 2023 - May 2024</p>
+                <p>Gained some practical experience in a wide range of areas, like manufacturing, marketing, supply chain management, and maintenance practices from experienced professionals.</p>
             </div>
-            <div class="cart-summary">
-                <h2>Order Summary</h2>
-                <p>Subtotal: $<span id="subtotal">0.00</span></p>
-                <p>Shipping: $<span id="shipping">5.00</span></p>
-                <p>Total: $<span id="total">5.00</span></p>
-                <button>Proceed to Checkout</button>
+            <div class="project">
+                <h3>Design and Study on Bio-Inspired Lattice Structure by using SLA 3D printer</h3>
+                <p>Jan 2023 - May 2023</p>
+                <p>This project explores bio-mimicry by designing lattice structures inspired by nature. 3D printing with Stereolithography (SLA) will be used to fabricate and study the mechanical properties of these innovative lightweight structures.</p>
             </div>
-        </section>
-
-        <section class="checkout">
-            <h1>Checkout</h1>
-            <form>
-                <h2>Billing Details</h2>
-                <label for="name">Name</label>
-                <input type="text" id="name" required>
-                <label for="email">Email</label>
-                <input type="email" id="email" required>
-                <label for="address">Address</label>
-                <input type="text" id="address" required>
-                <label for="city">City</label>
-                <input type="text" id="city" required>
-                <label for="zip">ZIP Code</label>
-                <input type="text" id="zip" required>
-
-                <h2>Shipping Details</h2>
-                <label><input type="checkbox" id="same-as-billing"> Same as billing</label>
-                <!-- Additional shipping fields if not same as billing -->
-
-                <h2>Payment Details</h2>
-                <label for="card-number">Card Number</label>
-                <input type="text" id="card-number" required>
-                <label for="exp-date">Expiration Date</label>
-                <input type="text" id="exp-date" required>
-                <label for="cvv">CVV</label>
-                <input type="text" id="cvv" required>
-
-                <button type="submit">Place Order</button>
-            </form>
-        </section>
-
-        <section class="account">
-            <h1>Account</h1>
-            <div class="login">
-                <h2>Login</h2>
-                <form>
-                    <label for="login-email">Email</label>
-                    <input type="email" id="login-email" required>
-                    <label for="login-password">Password</label>
-                    <input type="password" id="login-password" required>
-                    <button type="submit">Login</button>
-                </form>
+            <div class="project">
+                <h3>Study of Dental Bridge Surface Roughness by Optimizing Parameters in SLA 3D Printing</h3>
+                <p>Aug 2022 - Jan 2023</p>
+                <p>This project investigated optimizing settings in SLA 3D printing to achieve a smoother surface finish (reduced roughness) for dental bridges.</p>
             </div>
-            <div class="register">
-                <h2>Create Account</h2>
-                <form>
-                    <label for="register-name">Name</label>
-                    <input type="text" id="register-name" required>
-                    <label for="register-email">Email</label>
-                    <input type="email" id="register-email" required>
-                    <label for="register-password">Password</label>
-                    <input type="password" id="register-password" required>
-                    <button type="submit">Create Account</button>
-                </form>
+            <div class="project">
+                <h3>Experimental Investigation of CI Engine Characteristics Fuelled with Camphor blended Calophyllum fuel with Hydrogen Induction</h3>
+                <p>Aug 2022 - Jan 2023</p>
+                <p>This project investigated the performance of a Compression Ignition (CI) engine running on a novel biofuel blend. The blend combined Calophyllum oil with camphor and utilized hydrogen induction for improved efficiency.</p>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="order-history">
-            <h1>Order History</h1>
-            <div class="orders">
-                <!-- Order history will be dynamically generated here -->
-            </div>
-        </section>
+    <section id="education">
+        <div class="container">
+            <h2>Education</h2>
+            <ul>
+                <li>Vellore Institute of Technology (2022 - 2024), M Tech (CAD/CAM) (80%)</li>
+                <li>SRM Institute of Science and Technology (2017 - 2022), B Tech in Mechanical Engineering (66.7%)</li>
+            </ul>
+        </div>
+    </section>
 
-        <section class="track-order">
-            <h1>Track Order</h1>
-            <form>
-                <label for="order-id">Order ID</label>
-                <input type="text" id="order-id" required>
-                <button type="submit">Track</button>
-            </form>
-            <div class="order-status">
-                <!-- Order status will be displayed here -->
-            </div>
-        </section>
-    </main>
+    <section id="contact">
+        <div class="container">
+            <h2>Contact Information</h2>
+            <p>Email: <a href="mailto:nnv26699@gmail.com">nnv26699@gmail.com</a></p>
+            <p>Phone: +91 7010432509</p>
+            <p>LinkedIn: <a href="https://www.linkedin.com/in/nidhish-nandan-v-b35b38206/" target="_blank">Nidhish Nandan Vijayakumar</a></p>
+        </div>
+    </section>
 
     <footer>
-        <p>&copy; 2024 T-Shirt Brand. All rights reserved.</p>
+        <div class="container">
+            <p>&copy; 2024 Nidhish Nandan Vijayakumar. All rights reserved.</p>
+        </div>
     </footer>
-
-    <script src="scripts.js"></script>
 </body>
 </html>
