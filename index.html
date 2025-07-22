@@ -3,80 +3,1170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nidhish Nandan Vijayakumar - Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Professional Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        }
+        .editable {
+            position: relative;
+            transition: all 0.2s ease;
+        }
+        .edit-mode .editable:hover {
+            box-shadow: 0 0 0 2px #3b82f6;
+            cursor: pointer;
+        }
+        .edit-button {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: #3b82f6;
+            color: white;
+            border-radius: 4px;
+            padding: 2px 8px;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            z-index: 10;
+        }
+        .edit-mode .editable:hover .edit-button {
+            opacity: 1;
+        }
+        .skill-bar {
+            height: 8px;
+            border-radius: 4px;
+            background-color: #e5e7eb;
+            margin-bottom: 16px;
+        }
+        .skill-progress {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #3b82f6, #1e3a8a);
+        }
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 30px;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background-color: #e5e7eb;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -6px;
+            top: 0;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: #3b82f6;
+            border: 2px solid #fff;
+        }
+        .project-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .edit-ui {
+            display: none;
+        }
+        .is-editor .edit-ui {
+            display: block;
+        }
+        .edit-instructions {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #fff;
+            border: 2px solid #3b82f6;
+            border-radius: 8px;
+            padding: 15px;
+            max-width: 300px;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .edit-instructions.collapsed {
+            width: 40px;
+            height: 40px;
+            overflow: hidden;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .edit-instructions-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: #3b82f6;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .edit-instructions.collapsed .edit-instructions-toggle {
+            position: static;
+        }
+        .edit-instructions.collapsed .instructions-content {
+            display: none;
+        }
+        .image-container {
+            position: relative;
+        }
+        .image-edit-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .edit-mode .image-container:hover .image-edit-overlay {
+            opacity: 1;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1 class="header-title">Nidhish Nandan Vijayakumar</h1>
-            <p>Skilled MTech CAD/CAM professional with expertise in complex mechanical component modeling and manufacturing using SolidWorks, Creo, and CATIA. Experience in CNC programming, 3D printing, robot handling, and process planning. Strong knowledge of manufacturing processes, materials science, project management, and problem-solving skills.</p>
+    <!-- Editing Instructions -->
+    <div class="edit-instructions edit-ui" id="editInstructions">
+        <button class="edit-instructions-toggle" id="instructionsToggle">
+            <i class="fas fa-question-circle"></i>
+        </button>
+        <div class="instructions-content">
+            <h3 class="text-lg font-bold text-gray-800 mb-2">How to Edit Your Portfolio</h3>
+            <ol class="text-sm text-gray-600 space-y-2 list-decimal pl-5">
+                <li>Click the <i class="fas fa-edit text-blue-600"></i> button in the bottom right to enter edit mode</li>
+                <li>Hover over any text or image you want to change</li>
+                <li>Click the "Edit" button that appears</li>
+                <li>Make your changes in the popup window</li>
+                <li>Click "Save" to apply your changes</li>
+            </ol>
+            <p class="text-xs text-gray-500 mt-2">Your changes are saved automatically and will persist when you reload the page.</p>
         </div>
-    </header>
+    </div>
 
-    <section id="skills">
-        <div class="container">
-            <h2>Technical Skills</h2>
-            <ul>
-                <li>Computer-Aided Design (CAD) software: SolidWorks, Creo, Siemens NX, AutoCAD, Fusion 360, CATIA</li>
-                <li>Meshing software: Altair HyperMesh</li>
-                <li>Finite Element Analysis (FEA) software: ANSYS APDL, ANSYS Workbench, SIMULATION in FUSION360</li>
-                <li>Manufacturing: Stereolithography (SLA), Selective Laser Melting (SLM), Fused Deposition Modeling (FDM), Selective Laser Sintering (SLS)</li>
-                <li>Other Skills: IoT, Automation, Server building, building websites</li>
-            </ul>
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md fixed w-full z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="editable">
+                <h1 id="logo-text" class="text-2xl font-bold text-blue-600">My Portfolio</h1>
+                <button class="edit-button edit-ui" onclick="editText('logo-text')">Edit</button>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="text-gray-800 hover:text-blue-600 transition">Home</a>
+                <a href="#about" class="text-gray-800 hover:text-blue-600 transition">About</a>
+                <a href="#skills" class="text-gray-800 hover:text-blue-600 transition">Skills</a>
+                <a href="#education" class="text-gray-800 hover:text-blue-600 transition">Education</a>
+                <a href="#projects" class="text-gray-800 hover:text-blue-600 transition">Projects</a>
+                <a href="#resume" class="text-gray-800 hover:text-blue-600 transition">Resume</a>
+                <a href="#contact" class="text-gray-800 hover:text-blue-600 transition">Contact</a>
+            </div>
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-gray-800 focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white w-full">
+            <div class="container mx-auto px-6 py-3 flex flex-col space-y-4">
+                <a href="#home" class="text-gray-800 hover:text-blue-600 transition">Home</a>
+                <a href="#about" class="text-gray-800 hover:text-blue-600 transition">About</a>
+                <a href="#skills" class="text-gray-800 hover:text-blue-600 transition">Skills</a>
+                <a href="#education" class="text-gray-800 hover:text-blue-600 transition">Education</a>
+                <a href="#projects" class="text-gray-800 hover:text-blue-600 transition">Projects</a>
+                <a href="#resume" class="text-gray-800 hover:text-blue-600 transition">Resume</a>
+                <a href="#contact" class="text-gray-800 hover:text-blue-600 transition">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-gradient min-h-screen flex items-center pt-16">
+        <div class="container mx-auto px-6 py-20">
+            <div class="text-center text-white max-w-3xl mx-auto">
+                <div class="editable">
+                    <h1 id="hero-title" class="text-4xl md:text-5xl font-bold mb-6">Hi, I'm <span class="text-yellow-300">John Doe</span></h1>
+                    <button class="edit-button edit-ui" onclick="editText('hero-title')">Edit</button>
+                </div>
+                <div class="editable">
+                    <h2 id="hero-subtitle" class="text-2xl md:text-3xl font-semibold mb-6">Software Engineer</h2>
+                    <button class="edit-button edit-ui" onclick="editText('hero-subtitle')">Edit</button>
+                </div>
+                <div class="editable">
+                    <p id="hero-description" class="text-lg mb-8">Passionate about creating efficient, scalable solutions and turning complex problems into elegant code.</p>
+                    <button class="edit-button edit-ui" onclick="editText('hero-description')">Edit</button>
+                </div>
+                <div class="flex justify-center space-x-4">
+                    <a href="#contact" class="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition">Contact Me</a>
+                    <a href="#projects" class="border-2 border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-blue-600 transition">View Projects</a>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section id="projects">
-        <div class="container">
-            <h2>Technical Projects</h2>
-            <div class="project">
-                <h3>Design and Additive Manufacturing of Bio-Inspired Lattice Sandwich Structure using SLM 3D printing</h3>
-                <p>July 2023 - May 2024</p>
-                <p>Gained some practical experience in a wide range of areas, like manufacturing, marketing, supply chain management, and maintenance practices from experienced professionals.</p>
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">About Me</h2>
+                <div class="w-24 h-1 bg-blue-600 mx-auto"></div>
             </div>
-            <div class="project">
-                <h3>Design and Study on Bio-Inspired Lattice Structure by using SLA 3D printer</h3>
-                <p>Jan 2023 - May 2023</p>
-                <p>This project explores bio-mimicry by designing lattice structures inspired by nature. 3D printing with Stereolithography (SLA) will be used to fabricate and study the mechanical properties of these innovative lightweight structures.</p>
+            <div class="flex flex-col md:flex-row gap-10">
+                <div class="md:w-1/3">
+                    <div class="editable image-container">
+                        <img id="profile-image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 400 400' preserveAspectRatio='xMidYMid slice'%3E%3Crect fill='%233b82f6' width='400' height='400'/%3E%3Ctext x='200' y='200' font-family='Arial' font-size='120' text-anchor='middle' dominant-baseline='middle' fill='white'%3E?????%3C/text%3E%3C/svg%3E" alt="Profile" class="rounded-lg shadow-lg w-full">
+                        <div class="image-edit-overlay edit-ui">
+                            <button onclick="editImage('profile-image')" class="bg-white text-blue-700 px-4 py-2 rounded-md font-medium hover:bg-blue-100 transition">Edit Image</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-2/3">
+                    <div class="editable">
+                        <h3 id="about-title" class="text-2xl font-bold text-gray-800 mb-4">Professional Summary</h3>
+                        <button class="edit-button edit-ui" onclick="editText('about-title')">Edit</button>
+                    </div>
+                    <div class="editable">
+                        <p id="about-description" class="text-gray-600 mb-6">I am a dedicated Software Engineer with a strong foundation in computer science and a passion for developing innovative solutions. With expertise in full-stack development, I specialize in creating efficient, scalable applications that solve real-world problems.</p>
+                        <button class="edit-button edit-ui" onclick="editText('about-description')">Edit</button>
+                    </div>
+                    <div class="editable">
+                        <p id="about-description-2" class="text-gray-600 mb-6">My approach combines technical excellence with creative problem-solving, allowing me to deliver high-quality code that meets both user needs and business objectives. I thrive in collaborative environments and am constantly seeking to expand my knowledge and skills in this ever-evolving field.</p>
+                        <button class="edit-button edit-ui" onclick="editText('about-description-2')">Edit</button>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                        <div>
+                            <div class="flex items-center mb-3">
+                                <i class="fas fa-graduation-cap text-blue-600 mr-3 text-xl"></i>
+                                <div class="editable">
+                                    <p id="about-detail-1" class="text-gray-700"><span class="font-medium">Degree:</span> Bachelor of Science in Computer Science</p>
+                                    <button class="edit-button edit-ui" onclick="editText('about-detail-1')">Edit</button>
+                                </div>
+                            </div>
+                            <div class="flex items-center mb-3">
+                                <i class="fas fa-briefcase text-blue-600 mr-3 text-xl"></i>
+                                <div class="editable">
+                                    <p id="about-detail-2" class="text-gray-700"><span class="font-medium">Experience:</span> 3+ years</p>
+                                    <button class="edit-button edit-ui" onclick="editText('about-detail-2')">Edit</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center mb-3">
+                                <i class="fas fa-map-marker-alt text-blue-600 mr-3 text-xl"></i>
+                                <div class="editable">
+                                    <p id="about-detail-3" class="text-gray-700"><span class="font-medium">Location:</span> San Francisco, CA</p>
+                                    <button class="edit-button edit-ui" onclick="editText('about-detail-3')">Edit</button>
+                                </div>
+                            </div>
+                            <div class="flex items-center mb-3">
+                                <i class="fas fa-language text-blue-600 mr-3 text-xl"></i>
+                                <div class="editable">
+                                    <p id="about-detail-4" class="text-gray-700"><span class="font-medium">Languages:</span> English (Native), Spanish (Intermediate)</p>
+                                    <button class="edit-button edit-ui" onclick="editText('about-detail-4')">Edit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="project">
-                <h3>Study of Dental Bridge Surface Roughness by Optimizing Parameters in SLA 3D Printing</h3>
-                <p>Aug 2022 - Jan 2023</p>
-                <p>This project investigated optimizing settings in SLA 3D printing to achieve a smoother surface finish (reduced roughness) for dental bridges.</p>
-            </div>
-            <div class="project">
-                <h3>Experimental Investigation of CI Engine Characteristics Fuelled with Camphor blended Calophyllum fuel with Hydrogen Induction</h3>
-                <p>Aug 2022 - Jan 2023</p>
-                <p>This project investigated the performance of a Compression Ignition (CI) engine running on a novel biofuel blend. The blend combined Calophyllum oil with camphor and utilized hydrogen induction for improved efficiency.</p>
-            </div>
-            <p class="highlight">For more details on my projects, visit my <a href="https://linktr.ee/nidhishnandan" target="_blank">reference page</a>.</p>
         </div>
     </section>
 
-    <section id="education">
-        <div class="container">
-            <h2>Education</h2>
-            <ul>
-                <li>Vellore Institute of Technology (2022 - 2024), M Tech (CAD/CAM) (80%)</li>
-                <li>SRM Institute of Science and Technology (2017 - 2022), B Tech in Mechanical Engineering (66.7%)</li>
-            </ul>
+    <!-- Skills Section -->
+    <section id="skills" class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Technical Skills</h2>
+                <div class="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
+                <div class="editable">
+                    <p id="skills-description" class="text-gray-600 max-w-2xl mx-auto">My technical expertise and proficiency in various programming languages, frameworks, and tools.</p>
+                    <button class="edit-button edit-ui" onclick="editText('skills-description')">Edit</button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-6">Programming Languages</h3>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <div class="editable">
+                                <span id="skill-1-name" class="text-gray-700 font-medium">JavaScript</span>
+                                <button class="edit-button edit-ui" onclick="editText('skill-1-name')">Edit</button>
+                            </div>
+                            <div class="editable">
+                                <span id="skill-1-percentage" class="text-blue-600 font-medium">90%</span>
+                                <button class="edit-button edit-ui" onclick="editText('skill-1-percentage')">Edit</button>
+                            </div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <div class="editable">
+                                <span id="skill-2-name" class="text-gray-700 font-medium">Python</span>
+                                <button class="edit-button edit-ui" onclick="editText('skill-2-name')">Edit</button>
+                            </div>
+                            <div class="editable">
+                                <span id="skill-2-percentage" class="text-blue-600 font-medium">85%</span>
+                                <button class="edit-button edit-ui" onclick="editText('skill-2-percentage')">Edit</button>
+                            </div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <div class="editable">
+                                <span id="skill-3-name" class="text-gray-700 font-medium">Java</span>
+                                <button class="edit-button edit-ui" onclick="editText('skill-3-name')">Edit</button>
+                            </div>
+                            <div class="editable">
+                                <span id="skill-3-percentage" class="text-blue-600 font-medium">80%</span>
+                                <button class="edit-button edit-ui" onclick="editText('skill-3-percentage')">Edit</button>
+                            </div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <div class="editable">
+                                <span id="skill-4-name" class="text-gray-700 font-medium">C++</span>
+                                <button class="edit-button edit-ui" onclick="editText('skill-4-name')">Edit</button>
+                            </div>
+                            <div class="editable">
+                                <span id="skill-4-percentage" class="text-blue-600 font-medium">75%</span>
+                                <button class="edit-button edit-ui" onclick="editText('skill-4-percentage')">Edit</button>
+                            </div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold text-gray-800 mb-6 mt-10">Frameworks & Libraries</h3>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <div class="editable">
+                                <span id="skill-5-name" class="text-gray-700 font-medium">React</span>
+                                <button class="edit-button edit-ui" onclick="editText('skill-5-name')">Edit</button>
+                            </div>
+                            <div class="editable">
+                                <span id="skill-5-percentage" class="text-blue-600 font-medium">90%</span>
+                                <button class="edit-button edit-ui" onclick="editText('skill-5-percentage')">Edit</button>
+                            </div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <div class="editable">
+                                <span id="skill-6-name" class="text-gray-700 font-medium">Node.js</span>
+                                <button class="edit-button edit-ui" onclick="editText('skill-6-name')">Edit</button>
+                            </div>
+                            <div class="editable">
+                                <span id="skill-6-percentage" class="text-blue-600 font-medium">85%</span>
+                                <button class="edit-button edit-ui" onclick="editText('skill-6-percentage')">Edit</button>
+                            </div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <div class="editable">
+                                <span id="skill-7-name" class="text-gray-700 font-medium">Django</span>
+                                <button class="edit-button edit-ui" onclick="editText('skill-7-name')">Edit</button>
+                            </div>
+                            <div class="editable">
+                                <span id="skill-7-percentage" class="text-blue-600 font-medium">80%</span>
+                                <button class="edit-button edit-ui" onclick="editText('skill-7-percentage')">Edit</button>
+                            </div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-6">Database Technologies</h3>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <div class="editable">
+                                <span id="skill-8-name" class="text-gray-700 font-medium">MongoDB</span>
+                                <button class="edit-button edit-ui" onclick="editText('skill-8-name')">Edit</button>
+                            </div>
+                            <div class="editable">
+                                <span id="skill-8-percentage" class="text-blue-600 font-medium">85%</span>
+                                <button class="edit-button edit-ui" onclick="editText('skill-8-percentage')">Edit</button>
+                            </div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <div class="editable">
+                                <span id="skill-9-name" class="text-gray-700 font-medium">PostgreSQL</span>
+                                <button class="edit-button edit-ui" onclick="editText('skill-9-name')">Edit</button>
+                            </div>
+                            <div class="editable">
+                                <span id="skill-9-percentage" class="text-blue-600 font-medium">80%</span>
+                                <button class="edit-button edit-ui" onclick="editText('skill-9-percentage')">Edit</button>
+                            </div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <div class="editable">
+                                <span id="skill-10-name" class="text-gray-700 font-medium">MySQL</span>
+                                <button class="edit-button edit-ui" onclick="editText('skill-10-name')">Edit</button>
+                            </div>
+                            <div class="editable">
+                                <span id="skill-10-percentage" class="text-blue-600 font-medium">85%</span>
+                                <button class="edit-button edit-ui" onclick="editText('skill-10-percentage')">Edit</button>
+                            </div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold text-gray-800 mb-6 mt-10">Tools & Technologies</h3>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <div class="editable">
+                                <span id="skill-11-name" class="text-gray-700 font-medium">Git & GitHub</span>
+                                <button class="edit-button edit-ui" onclick="editText('skill-11-name')">Edit</button>
+                            </div>
+                            <div class="editable">
+                                <span id="skill-11-percentage" class="text-blue-600 font-medium">95%</span>
+                                <button class="edit-button edit-ui" onclick="editText('skill-11-percentage')">Edit</button>
+                            </div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <div class="editable">
+                                <span id="skill-12-name" class="text-gray-700 font-medium">Docker</span>
+                                <button class="edit-button edit-ui" onclick="editText('skill-12-name')">Edit</button>
+                            </div>
+                            <div class="editable">
+                                <span id="skill-12-percentage" class="text-blue-600 font-medium">80%</span>
+                                <button class="edit-button edit-ui" onclick="editText('skill-12-percentage')">Edit</button>
+                            </div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <div class="editable">
+                                <span id="skill-13-name" class="text-gray-700 font-medium">AWS</span>
+                                <button class="edit-button edit-ui" onclick="editText('skill-13-name')">Edit</button>
+                            </div>
+                            <div class="editable">
+                                <span id="skill-13-percentage" class="text-blue-600 font-medium">75%</span>
+                                <button class="edit-button edit-ui" onclick="editText('skill-13-percentage')">Edit</button>
+                            </div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 75%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12">
+                <h3 class="text-xl font-bold text-gray-800 mb-6">Other Skills</h3>
+                <div class="flex flex-wrap gap-3">
+                    <span class="bg-blue-100 text-blue-800 px-4 py-2 rounded-full">Agile Methodology</span>
+                    <span class="bg-blue-100 text-blue-800 px-4 py-2 rounded-full">RESTful API Design</span>
+                    <span class="bg-blue-100 text-blue-800 px-4 py-2 rounded-full">CI/CD</span>
+                    <span class="bg-blue-100 text-blue-800 px-4 py-2 rounded-full">Test-Driven Development</span>
+                    <span class="bg-blue-100 text-blue-800 px-4 py-2 rounded-full">Microservices</span>
+                    <span class="bg-blue-100 text-blue-800 px-4 py-2 rounded-full">UI/UX Design</span>
+                    <span class="bg-blue-100 text-blue-800 px-4 py-2 rounded-full">Responsive Web Design</span>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section id="contact">
-        <div class="container">
-            <h2>Contact Information</h2>
-            <p>Email: <a href="mailto:nnv26699@gmail.com">nnv26699@gmail.com</a></p>
-            <p>Phone: +91 7010432509</p>
-            <p>LinkedIn: <a href="https://www.linkedin.com/in/nidhish-nandan-v-b35b38206/" target="_blank">Nidhish Nandan Vijayakumar</a></p>
+    <!-- Education Section -->
+    <section id="education" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Education</h2>
+                <div class="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
+                <div class="editable">
+                    <p id="education-description" class="text-gray-600 max-w-2xl mx-auto">My academic background and qualifications that have shaped my professional journey.</p>
+                    <button class="edit-button edit-ui" onclick="editText('education-description')">Edit</button>
+                </div>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <!-- Education 1 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
+                            <div class="editable">
+                                <h3 id="education-1-degree" class="text-xl font-bold text-gray-800">Bachelor of Science in Computer Science</h3>
+                                <button class="edit-button edit-ui" onclick="editText('education-1-degree')">Edit</button>
+                            </div>
+                            <div class="editable">
+                                <span id="education-1-year" class="text-blue-600 font-medium">2016 - 2020</span>
+                                <button class="edit-button edit-ui" onclick="editText('education-1-year')">Edit</button>
+                            </div>
+                        </div>
+                        <div class="editable">
+                            <h4 id="education-1-school" class="text-lg font-medium text-gray-700 mb-2">Stanford University</h4>
+                            <button class="edit-button edit-ui" onclick="editText('education-1-school')">Edit</button>
+                        </div>
+                        <div class="editable">
+                            <p id="education-1-description" class="text-gray-600 mb-4">Graduated with honors (GPA: 3.8/4.0). Specialized in Artificial Intelligence and Machine Learning. Completed a senior thesis on "Neural Networks for Natural Language Processing."</p>
+                            <button class="edit-button edit-ui" onclick="editText('education-1-description')">Edit</button>
+                        </div>
+                        <div class="editable">
+                            <p id="education-1-courses" class="text-gray-600"><span class="font-medium">Key Courses:</span> Data Structures & Algorithms, Database Systems, Machine Learning, Computer Networks, Software Engineering</p>
+                            <button class="edit-button edit-ui" onclick="editText('education-1-courses')">Edit</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Education 2 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
+                            <div class="editable">
+                                <h3 id="education-2-degree" class="text-xl font-bold text-gray-800">Master of Science in Software Engineering</h3>
+                                <button class="edit-button edit-ui" onclick="editText('education-2-degree')">Edit</button>
+                            </div>
+                            <div class="editable">
+                                <span id="education-2-year" class="text-blue-600 font-medium">2020 - 2022</span>
+                                <button class="edit-button edit-ui" onclick="editText('education-2-year')">Edit</button>
+                            </div>
+                        </div>
+                        <div class="editable">
+                            <h4 id="education-2-school" class="text-lg font-medium text-gray-700 mb-2">Massachusetts Institute of Technology</h4>
+                            <button class="edit-button edit-ui" onclick="editText('education-2-school')">Edit</button>
+                        </div>
+                        <div class="editable">
+                            <p id="education-2-description" class="text-gray-600 mb-4">Focused on advanced software development methodologies and distributed systems. Completed a master's project on "Scalable Microservices Architecture for Cloud Applications."</p>
+                            <button class="edit-button edit-ui" onclick="editText('education-2-description')">Edit</button>
+                        </div>
+                        <div class="editable">
+                            <p id="education-2-courses" class="text-gray-600"><span class="font-medium">Key Courses:</span> Advanced Algorithms, Cloud Computing, Distributed Systems, Software Architecture, DevOps Engineering</p>
+                            <button class="edit-button edit-ui" onclick="editText('education-2-courses')">Edit</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Certifications -->
+                <div class="mt-16">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Certifications</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Certification 1 -->
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <div class="editable">
+                                <h4 id="certification-1-name" class="text-lg font-bold text-gray-800 mb-2">AWS Certified Solutions Architect</h4>
+                                <button class="edit-button edit-ui" onclick="editText('certification-1-name')">Edit</button>
+                            </div>
+                            <div class="editable">
+                                <p id="certification-1-issuer" class="text-gray-600 mb-2">Amazon Web Services</p>
+                                <button class="edit-button edit-ui" onclick="editText('certification-1-issuer')">Edit</button>
+                            </div>
+                            <div class="editable">
+                                <p id="certification-1-date" class="text-blue-600 font-medium">Issued: June 2022</p>
+                                <button class="edit-button edit-ui" onclick="editText('certification-1-date')">Edit</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Certification 2 -->
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <div class="editable">
+                                <h4 id="certification-2-name" class="text-lg font-bold text-gray-800 mb-2">Google Professional Cloud Developer</h4>
+                                <button class="edit-button edit-ui" onclick="editText('certification-2-name')">Edit</button>
+                            </div>
+                            <div class="editable">
+                                <p id="certification-2-issuer" class="text-gray-600 mb-2">Google Cloud</p>
+                                <button class="edit-button edit-ui" onclick="editText('certification-2-issuer')">Edit</button>
+                            </div>
+                            <div class="editable">
+                                <p id="certification-2-date" class="text-blue-600 font-medium">Issued: September 2022</p>
+                                <button class="edit-button edit-ui" onclick="editText('certification-2-date')">Edit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <footer>
-        <div class="container">
-            <!-- Removed copyright line -->
+    <!-- Projects Section -->
+    <section id="projects" class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">My Projects</h2>
+                <div class="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
+                <div class="editable">
+                    <p id="projects-description" class="text-gray-600 max-w-2xl mx-auto">A showcase of my technical projects, including both professional work and academic research.</p>
+                    <button class="edit-button edit-ui" onclick="editText('projects-description')">Edit</button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-lg">
+                    <div class="editable image-container">
+                        <img id="project-1-image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 800 600' preserveAspectRatio='xMidYMid slice'%3E%3Crect fill='%233b82f6' width='800' height='600'/%3E%3Cg fill-opacity='0.5'%3E%3Ccircle fill='%231e3a8a' cx='400' cy='300' r='600'/%3E%3Ccircle fill='%232563eb' cx='400' cy='300' r='400'/%3E%3Ccircle fill='%2360a5fa' cx='400' cy='300' r='200'/%3E%3C/g%3E%3Ctext x='400' y='300' font-family='Arial' font-size='80' text-anchor='middle' fill='white'%3E??%3C/text%3E%3C/svg%3E" alt="Project 1" class="w-full h-48 object-cover">
+                        <div class="image-edit-overlay edit-ui">
+                            <button onclick="editImage('project-1-image')" class="bg-white text-blue-700 px-4 py-2 rounded-md font-medium hover:bg-blue-100 transition">Edit Image</button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="editable">
+                            <h3 id="project-1-title" class="text-xl font-bold text-gray-800 mb-2">AI-Powered Task Management System</h3>
+                            <button class="edit-button edit-ui" onclick="editText('project-1-title')">Edit</button>
+                        </div>
+                        <div class="editable">
+                            <p id="project-1-description" class="text-gray-600 mb-4">Developed a task management application with AI capabilities to prioritize tasks, suggest optimal scheduling, and provide productivity insights.</p>
+                            <button class="edit-button edit-ui" onclick="editText('project-1-description')">Edit</button>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">React</span>
+                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">Node.js</span>
+                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">MongoDB</span>
+                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">TensorFlow.js</span>
+                        </div>
+                        <div class="editable">
+                            <a id="project-1-link" href="#" class="inline-block text-blue-600 font-medium hover:text-blue-800 transition">View Project ?</a>
+                            <button class="edit-button edit-ui" onclick="editText('project-1-link')">Edit</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-lg">
+                    <div class="editable image-container">
+                        <img id="project-2-image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 800 600' preserveAspectRatio='xMidYMid slice'%3E%3Crect fill='%2310b981' width='800' height='600'/%3E%3Cg fill-opacity='0.5'%3E%3Cpath fill='%2334d399' d='M0 0L800 0L400 600Z'/%3E%3Cpath fill='%236ee7b7' d='M0 0L400 600L0 600Z'/%3E%3Cpath fill='%23059669' d='M800 0L800 600L400 600Z'/%3E%3C/g%3E%3Ctext x='400' y='300' font-family='Arial' font-size='80' text-anchor='middle' fill='white'%3E??%3C/text%3E%3C/svg%3E" alt="Project 2" class="w-full h-48 object-cover">
+                        <div class="image-edit-overlay edit-ui">
+                            <button onclick="editImage('project-2-image')" class="bg-white text-blue-700 px-4 py-2 rounded-md font-medium hover:bg-blue-100 transition">Edit Image</button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="editable">
+                            <h3 id="project-2-title" class="text-xl font-bold text-gray-800 mb-2">E-Commerce Mobile Application</h3>
+                            <button class="edit-button edit-ui" onclick="editText('project-2-title')">Edit</button>
+                        </div>
+                        <div class="editable">
+                            <p id="project-2-description" class="text-gray-600 mb-4">Built a cross-platform mobile application for an e-commerce business with features like product search, user authentication, shopping cart, and payment processing.</p>
+                            <button class="edit-button edit-ui" onclick="editText('project-2-description')">Edit</button>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">React Native</span>
+                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">Redux</span>
+                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">Firebase</span>
+                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">Stripe API</span>
+                        </div>
+                        <div class="editable">
+                            <a id="project-2-link" href="#" class="inline-block text-blue-600 font-medium hover:text-blue-800 transition">View Project ?</a>
+                            <button class="edit-button edit-ui" onclick="editText('project-2-link')">Edit</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-lg">
+                    <div class="editable image-container">
+                        <img id="project-3-image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 800 600' preserveAspectRatio='xMidYMid slice'%3E%3Crect fill='%23f59e0b' width='800' height='600'/%3E%3Cg fill-opacity='0.5'%3E%3Ccircle fill='%23fbbf24' cx='400' cy='300' r='600'/%3E%3Ccircle fill='%23d97706' cx='400' cy='300' r='400'/%3E%3Ccircle fill='%23fcd34d' cx='400' cy='300' r='200'/%3E%3C/g%3E%3Ctext x='400' y='300' font-family='Arial' font-size='80' text-anchor='middle' fill='white'%3E??%3C/text%3E%3C/svg%3E" alt="Project 3" class="w-full h-48 object-cover">
+                        <div class="image-edit-overlay edit-ui">
+                            <button onclick="editImage('project-3-image')" class="bg-white text-blue-700 px-4 py-2 rounded-md font-medium hover:bg-blue-100 transition">Edit Image</button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="editable">
+                            <h3 id="project-3-title" class="text-xl font-bold text-gray-800 mb-2">Data Visualization Dashboard</h3>
+                            <button class="edit-button edit-ui" onclick="editText('project-3-title')">Edit</button>
+                        </div>
+                        <div class="editable">
+                            <p id="project-3-description" class="text-gray-600 mb-4">Created an interactive dashboard for visualizing complex datasets with customizable charts, filters, and real-time updates for business intelligence purposes.</p>
+                            <button class="edit-button edit-ui" onclick="editText('project-3-description')">Edit</button>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">Vue.js</span>
+                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">D3.js</span>
+                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">Express</span>
+                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">PostgreSQL</span>
+                        </div>
+                        <div class="editable">
+                            <a id="project-3-link" href="#" class="inline-block text-blue-600 font-medium hover:text-blue-800 transition">View Project ?</a>
+                            <button class="edit-button edit-ui" onclick="editText('project-3-link')">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resume Section -->
+    <section id="resume" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Resume & Cover Letter</h2>
+                <div class="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
+                <div class="editable">
+                    <p id="resume-description" class="text-gray-600 max-w-2xl mx-auto">Download my resume and cover letter to learn more about my professional experience and qualifications.</p>
+                    <button class="edit-button edit-ui" onclick="editText('resume-description')">Edit</button>
+                </div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row justify-center items-center gap-8">
+                <!-- Resume Card -->
+                <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md text-center">
+                    <div class="text-5xl text-blue-600 mb-6">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">My Resume</h3>
+                    <div class="editable">
+                        <p id="resume-text" class="text-gray-600 mb-6">A comprehensive overview of my professional experience, skills, and educational background.</p>
+                        <button class="edit-button edit-ui" onclick="editText('resume-text')">Edit</button>
+                    </div>
+                    <div class="editable">
+                        <a id="resume-link" href="#" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition">
+                            <i class="fas fa-download mr-2"></i> Download Resume
+                        </a>
+                        <button class="edit-button edit-ui" onclick="editText('resume-link')">Edit</button>
+                    </div>
+                </div>
+                
+                <!-- Cover Letter Card -->
+                <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md text-center">
+                    <div class="text-5xl text-blue-600 mb-6">
+                        <i class="fas fa-envelope-open-text"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Cover Letter</h3>
+                    <div class="editable">
+                        <p id="cover-letter-text" class="text-gray-600 mb-6">A personalized letter explaining my interest in your company and how my skills align with your requirements.</p>
+                        <button class="edit-button edit-ui" onclick="editText('cover-letter-text')">Edit</button>
+                    </div>
+                    <div class="editable">
+                        <a id="cover-letter-link" href="#" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition">
+                            <i class="fas fa-download mr-2"></i> Download Cover Letter
+                        </a>
+                        <button class="edit-button edit-ui" onclick="editText('cover-letter-link')">Edit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Get In Touch</h2>
+                <div class="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
+                <div class="editable">
+                    <p id="contact-description" class="text-gray-600 max-w-2xl mx-auto">Interested in discussing a potential opportunity? Feel free to reach out to me using the contact information below.</p>
+                    <button class="edit-button edit-ui" onclick="editText('contact-description')">Edit</button>
+                </div>
+            </div>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Contact Information</h3>
+                    
+                    <div class="flex items-start mb-6">
+                        <div class="text-blue-600 text-xl mr-4">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-gray-800 font-medium mb-1">Email</h4>
+                            <div class="editable">
+                                <p id="contact-email" class="text-gray-600">john.doe@example.com</p>
+                                <button class="edit-button edit-ui" onclick="editText('contact-email')">Edit</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start mb-6">
+                        <div class="text-blue-600 text-xl mr-4">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-gray-800 font-medium mb-1">Phone</h4>
+                            <div class="editable">
+                                <p id="contact-phone" class="text-gray-600">+1 (555) 123-4567</p>
+                                <button class="edit-button edit-ui" onclick="editText('contact-phone')">Edit</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start mb-6">
+                        <div class="text-blue-600 text-xl mr-4">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-gray-800 font-medium mb-1">Location</h4>
+                            <div class="editable">
+                                <p id="contact-location" class="text-gray-600">San Francisco, CA</p>
+                                <button class="edit-button edit-ui" onclick="editText('contact-location')">Edit</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <h4 class="text-gray-800 font-medium mb-4">Connect With Me</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-gray-600 hover:text-blue-600 text-xl transition">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="#" class="text-gray-600 hover:text-blue-600 text-xl transition">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="text-gray-600 hover:text-blue-600 text-xl transition">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="text-gray-600 hover:text-blue-600 text-xl transition">
+                                <i class="fab fa-stack-overflow"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <div class="editable">
+                        <h2 id="footer-title" class="text-2xl font-bold">John Doe</h2>
+                        <button class="edit-button edit-ui" onclick="editText('footer-title')">Edit</button>
+                    </div>
+                    <div class="editable">
+                        <p id="footer-subtitle" class="text-gray-400">Software Engineer</p>
+                        <button class="edit-button edit-ui" onclick="editText('footer-subtitle')">Edit</button>
+                    </div>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-linkedin text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-stack-overflow text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <div class="editable">
+                    <p id="copyright" class="text-gray-400">© 2023 John Doe. All rights reserved.</p>
+                    <button class="edit-button edit-ui" onclick="editText('copyright')">Edit</button>
+                </div>
+            </div>
         </div>
     </footer>
-</body>
+
+    <!-- Edit Mode Toggle Button -->
+    <div id="edit-toggle-container" class="fixed bottom-6 right-6 z-50 edit-ui">
+        <button id="edit-mode-toggle" class="bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 transition">
+            <i class="fas fa-edit text-xl"></i>
+        </button>
+    </div>
+
+    <!-- Modal for editing text -->
+    <div id="editTextModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-white rounded-lg p-8 max-w-md w-full">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Edit Text</h2>
+            <textarea id="textInput" class="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500 h-32"></textarea>
+            <div class="flex justify-end space-x-3">
+                <button onclick="closeTextModal()" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition">Cancel</button>
+                <button onclick="saveText()" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for editing images -->
+    <div id="editImageModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-white rounded-lg p-8 max-w-md w-full">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Edit Image</h2>
+            <p class="text-gray-600 mb-4">Enter the URL of the new image:</p>
+            <input type="text" id="imageUrlInput" class="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="https://example.com/image.jpg">
+            <div class="flex justify-end space-x-3">
+                <button onclick="closeImageModal()" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition">Cancel</button>
+                <button onclick="saveImage()" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check if we're in Canva editor or published site
+        function isInCanvaEditor() {
+            // In a real implementation, Canva would provide a more reliable way to detect this
+            // For this demo, we'll use a URL parameter to simulate being in the editor
+            return window.location.href.includes('editor=true') || 
+                   window.location.search.includes('editor=true') ||
+                   window.location.hostname === 'localhost' || 
+                   window.location.hostname === '127.0.0.1';
+        }
+        
+        // Initialize the page based on whether we're in editor or published mode
+        function initPage() {
+            if (isInCanvaEditor()) {
+                document.body.classList.add('is-editor');
+                console.log("Editor mode enabled");
+                
+                // Check if edit mode was previously enabled
+                const savedEditMode = localStorage.getItem('editMode') === 'true';
+                if (savedEditMode) {
+                    document.body.classList.add('edit-mode');
+                    document.getElementById('edit-mode-toggle').innerHTML = '<i class="fas fa-eye text-xl"></i>';
+                }
+            } else {
+                console.log("Published mode - edit features disabled");
+            }
+            
+            // Load saved content
+            loadSavedContent();
+            
+            // Update skill bars
+            updateSkillBars();
+        }
+        
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Edit mode toggle
+        let editMode = false;
+        
+        if (document.getElementById('edit-mode-toggle')) {
+            document.getElementById('edit-mode-toggle').addEventListener('click', function() {
+                editMode = !editMode;
+                document.body.classList.toggle('edit-mode', editMode);
+                
+                // Save edit mode state to localStorage
+                localStorage.setItem('editMode', editMode);
+                
+                // Update button icon
+                this.innerHTML = editMode ? '<i class="fas fa-eye text-xl"></i>' : '<i class="fas fa-edit text-xl"></i>';
+            });
+        }
+
+        // Instructions toggle
+        if (document.getElementById('instructionsToggle')) {
+            document.getElementById('instructionsToggle').addEventListener('click', function() {
+                const instructions = document.getElementById('editInstructions');
+                instructions.classList.toggle('collapsed');
+                
+                // Update icon
+                if (instructions.classList.contains('collapsed')) {
+                    this.innerHTML = '<i class="fas fa-question-circle"></i>';
+                } else {
+                    this.innerHTML = '<i class="fas fa-times"></i>';
+                }
+            });
+        }
+
+        // Text editing functionality
+        let currentTextId = null;
+
+        function editText(textId) {
+            currentTextId = textId;
+            const textElement = document.getElementById(textId);
+            document.getElementById('textInput').value = textElement.innerText;
+            document.getElementById('editTextModal').classList.remove('hidden');
+        }
+
+        function closeTextModal() {
+            document.getElementById('editTextModal').classList.add('hidden');
+            currentTextId = null;
+        }
+
+        function saveText() {
+            const newText = document.getElementById('textInput').value.trim();
+            if (newText && currentTextId) {
+                document.getElementById(currentTextId).innerText = newText;
+                
+                // Save to localStorage for persistence
+                localStorage.setItem(currentTextId, newText);
+                
+                closeTextModal();
+                
+                // Update skill bars if needed
+                if (currentTextId.includes('percentage')) {
+                    updateSkillBars();
+                }
+                
+                // Show success message
+                showNotification('Text updated successfully!');
+            }
+        }
+
+        // Image editing functionality
+        let currentImageId = null;
+
+        function editImage(imageId) {
+            currentImageId = imageId;
+            document.getElementById('imageUrlInput').value = document.getElementById(imageId).src;
+            document.getElementById('editImageModal').classList.remove('hidden');
+        }
+
+        function closeImageModal() {
+            document.getElementById('editImageModal').classList.add('hidden');
+            currentImageId = null;
+        }
+
+        function saveImage() {
+            const newUrl = document.getElementById('imageUrlInput').value.trim();
+            if (newUrl && currentImageId) {
+                document.getElementById(currentImageId).src = newUrl;
+                
+                // Save to localStorage for persistence
+                localStorage.setItem(currentImageId, newUrl);
+                
+                closeImageModal();
+                
+                // Show success message
+                showNotification('Image updated successfully!');
+            } else {
+                alert("Please enter a valid image URL");
+            }
+        }
+
+        // Update skill bar widths when percentages change
+        function updateSkillBars() {
+            const skillBars = document.querySelectorAll('.skill-progress');
+            const percentages = document.querySelectorAll('[id$="-percentage"]');
+            
+            for (let i = 0; i < skillBars.length; i++) {
+                if (percentages[i]) {
+                    const percentage = percentages[i].innerText;
+                    skillBars[i].style.width = percentage;
+                }
+            }
+        }
+
+        // Load saved content from localStorage
+        function loadSavedContent() {
+            // Load text content
+            document.querySelectorAll('[id]').forEach(element => {
+                const savedText = localStorage.getItem(element.id);
+                if (savedText && !element.id.endsWith('-image')) {
+                    element.innerText = savedText;
+                }
+            });
+            
+            // Load images
+            document.querySelectorAll('[id$="-image"]').forEach(element => {
+                const savedUrl = localStorage.getItem(element.id);
+                if (savedUrl) {
+                    element.src = savedUrl;
+                }
+            });
+        }
+
+        // Show notification
+        function showNotification(message) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = 'fixed bottom-6 left-6 bg-green-500 text-white px-4 py-2 rounded-md shadow-lg z-50';
+            notification.textContent = message;
+            
+            // Add to body
+            document.body.appendChild(notification);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                }
+            });
+        });
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', initPage);
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9633a92187f38a08',t:'MTc1MzE5NDg4Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
