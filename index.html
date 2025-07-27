@@ -182,11 +182,13 @@
             opacity: 1;
         }
         .edit-mode .project-card:hover .delete-project,
-        .edit-mode .certificate-card:hover .delete-certificate {
+        .edit-mode .certificate-card:hover .delete-certificate,
+        .edit-mode .timeline-item:hover .delete-education {
             opacity: 1;
         }
         .delete-project,
-        .delete-certificate {
+        .delete-certificate,
+        .delete-education {
             position: absolute;
             top: 10px;
             right: 10px;
@@ -202,6 +204,25 @@
             transition: opacity 0.2s ease;
             z-index: 20;
             cursor: pointer;
+        }
+        .file-upload-container {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+        .file-upload-container input[type=file] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            min-width: 100%;
+            min-height: 100%;
+            font-size: 100px;
+            text-align: right;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            outline: none;
+            cursor: pointer;
+            display: block;
         }
     </style>
 </head>
@@ -539,63 +560,76 @@
                     <p id="education-description" class="text-gray-600 max-w-2xl mx-auto">My academic background and qualifications that have shaped my professional journey.</p>
                     <button class="edit-button edit-ui" onclick="editText('education-description')">Edit</button>
                 </div>
+                <div class="mt-6 edit-ui">
+                    <button class="add-button" onclick="addEducation()">
+                        <i class="fas fa-plus"></i> Add Education
+                    </button>
+                </div>
             </div>
             
             <div class="max-w-4xl mx-auto">
-                <!-- Education 1 -->
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="bg-white rounded-lg shadow-md p-6">
-                        <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
-                            <div class="editable">
-                                <h3 id="education-1-degree" class="text-xl font-bold text-gray-800">Bachelor of Science in Computer Science</h3>
-                                <button class="edit-button edit-ui" onclick="editText('education-1-degree')">Edit</button>
+                <div id="education-container">
+                    <!-- Education 1 -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="bg-white rounded-lg shadow-md p-6 relative">
+                            <div class="delete-education edit-ui" onclick="removeEducation(this)">
+                                <i class="fas fa-trash-alt"></i>
+                            </div>
+                            <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
+                                <div class="editable">
+                                    <h3 id="education-1-degree" class="text-xl font-bold text-gray-800">Bachelor of Science in Computer Science</h3>
+                                    <button class="edit-button edit-ui" onclick="editText('education-1-degree')">Edit</button>
+                                </div>
+                                <div class="editable">
+                                    <span id="education-1-year" class="text-blue-600 font-medium">2016 - 2020</span>
+                                    <button class="edit-button edit-ui" onclick="editText('education-1-year')">Edit</button>
+                                </div>
                             </div>
                             <div class="editable">
-                                <span id="education-1-year" class="text-blue-600 font-medium">2016 - 2020</span>
-                                <button class="edit-button edit-ui" onclick="editText('education-1-year')">Edit</button>
+                                <h4 id="education-1-school" class="text-lg font-medium text-gray-700 mb-2">Stanford University</h4>
+                                <button class="edit-button edit-ui" onclick="editText('education-1-school')">Edit</button>
                             </div>
-                        </div>
-                        <div class="editable">
-                            <h4 id="education-1-school" class="text-lg font-medium text-gray-700 mb-2">Stanford University</h4>
-                            <button class="edit-button edit-ui" onclick="editText('education-1-school')">Edit</button>
-                        </div>
-                        <div class="editable">
-                            <p id="education-1-description" class="text-gray-600 mb-4">Graduated with honors (GPA: 3.8/4.0). Specialized in Artificial Intelligence and Machine Learning. Completed a senior thesis on "Neural Networks for Natural Language Processing."</p>
-                            <button class="edit-button edit-ui" onclick="editText('education-1-description')">Edit</button>
-                        </div>
-                        <div class="editable">
-                            <p id="education-1-courses" class="text-gray-600"><span class="font-medium">Key Courses:</span> Data Structures & Algorithms, Database Systems, Machine Learning, Computer Networks, Software Engineering</p>
-                            <button class="edit-button edit-ui" onclick="editText('education-1-courses')">Edit</button>
+                            <div class="editable">
+                                <p id="education-1-description" class="text-gray-600 mb-4">Graduated with honors (GPA: 3.8/4.0). Specialized in Artificial Intelligence and Machine Learning. Completed a senior thesis on "Neural Networks for Natural Language Processing."</p>
+                                <button class="edit-button edit-ui" onclick="editText('education-1-description')">Edit</button>
+                            </div>
+                            <div class="editable">
+                                <p id="education-1-courses" class="text-gray-600"><span class="font-medium">Key Courses:</span> Data Structures & Algorithms, Database Systems, Machine Learning, Computer Networks, Software Engineering</p>
+                                <button class="edit-button edit-ui" onclick="editText('education-1-courses')">Edit</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <!-- Education 2 -->
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="bg-white rounded-lg shadow-md p-6">
-                        <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
-                            <div class="editable">
-                                <h3 id="education-2-degree" class="text-xl font-bold text-gray-800">Master of Science in Software Engineering</h3>
-                                <button class="edit-button edit-ui" onclick="editText('education-2-degree')">Edit</button>
+                    
+                    <!-- Education 2 -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="bg-white rounded-lg shadow-md p-6 relative">
+                            <div class="delete-education edit-ui" onclick="removeEducation(this)">
+                                <i class="fas fa-trash-alt"></i>
+                            </div>
+                            <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
+                                <div class="editable">
+                                    <h3 id="education-2-degree" class="text-xl font-bold text-gray-800">Master of Science in Software Engineering</h3>
+                                    <button class="edit-button edit-ui" onclick="editText('education-2-degree')">Edit</button>
+                                </div>
+                                <div class="editable">
+                                    <span id="education-2-year" class="text-blue-600 font-medium">2020 - 2022</span>
+                                    <button class="edit-button edit-ui" onclick="editText('education-2-year')">Edit</button>
+                                </div>
                             </div>
                             <div class="editable">
-                                <span id="education-2-year" class="text-blue-600 font-medium">2020 - 2022</span>
-                                <button class="edit-button edit-ui" onclick="editText('education-2-year')">Edit</button>
+                                <h4 id="education-2-school" class="text-lg font-medium text-gray-700 mb-2">Massachusetts Institute of Technology</h4>
+                                <button class="edit-button edit-ui" onclick="editText('education-2-school')">Edit</button>
                             </div>
-                        </div>
-                        <div class="editable">
-                            <h4 id="education-2-school" class="text-lg font-medium text-gray-700 mb-2">Massachusetts Institute of Technology</h4>
-                            <button class="edit-button edit-ui" onclick="editText('education-2-school')">Edit</button>
-                        </div>
-                        <div class="editable">
-                            <p id="education-2-description" class="text-gray-600 mb-4">Focused on advanced software development methodologies and distributed systems. Completed a master's project on "Scalable Microservices Architecture for Cloud Applications."</p>
-                            <button class="edit-button edit-ui" onclick="editText('education-2-description')">Edit</button>
-                        </div>
-                        <div class="editable">
-                            <p id="education-2-courses" class="text-gray-600"><span class="font-medium">Key Courses:</span> Advanced Algorithms, Cloud Computing, Distributed Systems, Software Architecture, DevOps Engineering</p>
-                            <button class="edit-button edit-ui" onclick="editText('education-2-courses')">Edit</button>
+                            <div class="editable">
+                                <p id="education-2-description" class="text-gray-600 mb-4">Focused on advanced software development methodologies and distributed systems. Completed a master's project on "Scalable Microservices Architecture for Cloud Applications."</p>
+                                <button class="edit-button edit-ui" onclick="editText('education-2-description')">Edit</button>
+                            </div>
+                            <div class="editable">
+                                <p id="education-2-courses" class="text-gray-600"><span class="font-medium">Key Courses:</span> Advanced Algorithms, Cloud Computing, Distributed Systems, Software Architecture, DevOps Engineering</p>
+                                <button class="edit-button edit-ui" onclick="editText('education-2-courses')">Edit</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -805,11 +839,19 @@
                         <p id="resume-text" class="text-gray-600 mb-6">A comprehensive overview of my professional experience, skills, and educational background.</p>
                         <button class="edit-button edit-ui" onclick="editText('resume-text')">Edit</button>
                     </div>
-                    <div class="editable">
-                        <a id="resume-link" href="#" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition">
-                            <i class="fas fa-download mr-2"></i> Download Resume
-                        </a>
-                        <button class="edit-button edit-ui" onclick="editText('resume-link')">Edit</button>
+                    <div class="flex justify-center">
+                        <div class="editable">
+                            <a id="resume-link" href="#" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition" onclick="openResume(event)">
+                                <i class="fas fa-download mr-2"></i> Download Resume
+                            </a>
+                            <button class="edit-button edit-ui" onclick="editText('resume-link')">Edit</button>
+                        </div>
+                        <div class="ml-4 edit-ui file-upload-container">
+                            <button class="bg-green-600 text-white px-4 py-3 rounded-full font-semibold hover:bg-green-700 transition">
+                                <i class="fas fa-upload mr-2"></i> Upload
+                            </button>
+                            <input type="file" id="resume-upload" accept=".pdf,.doc,.docx" onchange="handleResumeUpload(this)">
+                        </div>
                     </div>
                 </div>
                 
@@ -826,11 +868,19 @@
                         <p id="cover-letter-text" class="text-gray-600 mb-6">A personalized letter explaining my interest in your company and how my skills align with your requirements.</p>
                         <button class="edit-button edit-ui" onclick="editText('cover-letter-text')">Edit</button>
                     </div>
-                    <div class="editable">
-                        <a id="cover-letter-link" href="#" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition">
-                            <i class="fas fa-download mr-2"></i> Download Cover Letter
-                        </a>
-                        <button class="edit-button edit-ui" onclick="editText('cover-letter-link')">Edit</button>
+                    <div class="flex justify-center">
+                        <div class="editable">
+                            <a id="cover-letter-link" href="#" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition" onclick="openCoverLetter(event)">
+                                <i class="fas fa-download mr-2"></i> Download Cover Letter
+                            </a>
+                            <button class="edit-button edit-ui" onclick="editText('cover-letter-link')">Edit</button>
+                        </div>
+                        <div class="ml-4 edit-ui file-upload-container">
+                            <button class="bg-green-600 text-white px-4 py-3 rounded-full font-semibold hover:bg-green-700 transition">
+                                <i class="fas fa-upload mr-2"></i> Upload
+                            </button>
+                            <input type="file" id="cover-letter-upload" accept=".pdf,.doc,.docx" onchange="handleCoverLetterUpload(this)">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1065,6 +1115,57 @@
             <div class="flex justify-end space-x-3">
                 <button onclick="closeCertificateModal()" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition">Cancel</button>
                 <button onclick="saveCertificate()" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">Add Certificate</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for adding education -->
+    <div id="addEducationModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-white rounded-lg p-8 max-w-md w-full">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Add New Education</h2>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="educationDegreeInput">Degree/Program</label>
+                <input type="text" id="educationDegreeInput" class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter degree or program name">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="educationSchoolInput">School/University</label>
+                <input type="text" id="educationSchoolInput" class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter school or university name">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="educationYearInput">Years</label>
+                <input type="text" id="educationYearInput" class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="e.g., 2018 - 2022">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="educationDescriptionInput">Description</label>
+                <textarea id="educationDescriptionInput" class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 h-24" placeholder="Enter education description"></textarea>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="educationCoursesInput">Key Courses</label>
+                <input type="text" id="educationCoursesInput" class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter key courses">
+            </div>
+            <div class="flex justify-end space-x-3">
+                <button onclick="closeEducationModal()" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition">Cancel</button>
+                <button onclick="saveEducation()" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">Add Education</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for document preview -->
+    <div id="documentPreviewModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center hidden z-50">
+        <div class="bg-white rounded-lg p-4 max-w-4xl w-full h-3/4 flex flex-col">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold text-gray-800" id="documentPreviewTitle">Document Preview</h2>
+                <button onclick="closeDocumentPreview()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="flex-grow overflow-auto bg-gray-100 p-4 rounded">
+                <div id="documentPreviewContent" class="w-full h-full flex items-center justify-center">
+                    <p class="text-gray-500 text-center">No document available. Please upload a document first.</p>
+                </div>
+            </div>
+            <div class="mt-4 flex justify-end">
+                <button onclick="closeDocumentPreview()" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">Close</button>
             </div>
         </div>
     </div>
@@ -1579,6 +1680,272 @@
             }
         }
 
+        // Education functionality
+        let educationCounter = 3; // Start after the 2 existing education items
+
+        function addEducation() {
+            // Reset form
+            document.getElementById('educationDegreeInput').value = '';
+            document.getElementById('educationSchoolInput').value = '';
+            document.getElementById('educationYearInput').value = '';
+            document.getElementById('educationDescriptionInput').value = '';
+            document.getElementById('educationCoursesInput').value = '';
+            
+            document.getElementById('addEducationModal').classList.remove('hidden');
+        }
+
+        function closeEducationModal() {
+            document.getElementById('addEducationModal').classList.add('hidden');
+        }
+
+        function saveEducation() {
+            const degree = document.getElementById('educationDegreeInput').value.trim();
+            const school = document.getElementById('educationSchoolInput').value.trim();
+            const year = document.getElementById('educationYearInput').value.trim();
+            const description = document.getElementById('educationDescriptionInput').value.trim();
+            const courses = document.getElementById('educationCoursesInput').value.trim();
+            
+            if (degree && school && year) {
+                const educationContainer = document.getElementById('education-container');
+                const eduId = `education-${educationCounter}`;
+                
+                // Create new education item
+                const educationItem = document.createElement('div');
+                educationItem.className = 'timeline-item';
+                educationItem.innerHTML = `
+                    <div class="timeline-dot"></div>
+                    <div class="bg-white rounded-lg shadow-md p-6 relative">
+                        <div class="delete-education edit-ui" onclick="removeEducation(this)">
+                            <i class="fas fa-trash-alt"></i>
+                        </div>
+                        <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
+                            <div class="editable">
+                                <h3 id="${eduId}-degree" class="text-xl font-bold text-gray-800">${degree}</h3>
+                                <button class="edit-button edit-ui" onclick="editText('${eduId}-degree')">Edit</button>
+                            </div>
+                            <div class="editable">
+                                <span id="${eduId}-year" class="text-blue-600 font-medium">${year}</span>
+                                <button class="edit-button edit-ui" onclick="editText('${eduId}-year')">Edit</button>
+                            </div>
+                        </div>
+                        <div class="editable">
+                            <h4 id="${eduId}-school" class="text-lg font-medium text-gray-700 mb-2">${school}</h4>
+                            <button class="edit-button edit-ui" onclick="editText('${eduId}-school')">Edit</button>
+                        </div>
+                        <div class="editable">
+                            <p id="${eduId}-description" class="text-gray-600 mb-4">${description}</p>
+                            <button class="edit-button edit-ui" onclick="editText('${eduId}-description')">Edit</button>
+                        </div>
+                        <div class="editable">
+                            <p id="${eduId}-courses" class="text-gray-600"><span class="font-medium">Key Courses:</span> ${courses}</p>
+                            <button class="edit-button edit-ui" onclick="editText('${eduId}-courses')">Edit</button>
+                        </div>
+                    </div>
+                `;
+                
+                educationContainer.appendChild(educationItem);
+                
+                // Save education data to localStorage
+                const eduData = {
+                    degree,
+                    school,
+                    year,
+                    description,
+                    courses
+                };
+                localStorage.setItem(`education-${educationCounter}`, JSON.stringify(eduData));
+                
+                educationCounter++;
+                localStorage.setItem('educationCounter', educationCounter);
+                
+                closeEducationModal();
+                showNotification('Education added successfully!');
+            } else {
+                alert("Please fill in at least the degree, school, and year fields");
+            }
+        }
+
+        function removeEducation(element) {
+            const educationItem = element.closest('.timeline-item');
+            const eduId = educationItem.querySelector('[id^="education-"]').id.split('-degree')[0];
+            
+            // Remove from DOM
+            educationItem.remove();
+            
+            // Remove from localStorage
+            localStorage.removeItem(eduId);
+            
+            showNotification('Education removed successfully!');
+        }
+
+        function loadEducation() {
+            const savedCounter = localStorage.getItem('educationCounter');
+            if (savedCounter) {
+                educationCounter = parseInt(savedCounter);
+                
+                // Load saved education items (starting from 3, as 1-2 are hardcoded)
+                for (let i = 3; i < educationCounter; i++) {
+                    const eduData = localStorage.getItem(`education-${i}`);
+                    if (eduData) {
+                        const edu = JSON.parse(eduData);
+                        const educationContainer = document.getElementById('education-container');
+                        const eduId = `education-${i}`;
+                        
+                        // Create education item
+                        const educationItem = document.createElement('div');
+                        educationItem.className = 'timeline-item';
+                        educationItem.innerHTML = `
+                            <div class="timeline-dot"></div>
+                            <div class="bg-white rounded-lg shadow-md p-6 relative">
+                                <div class="delete-education edit-ui" onclick="removeEducation(this)">
+                                    <i class="fas fa-trash-alt"></i>
+                                </div>
+                                <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
+                                    <div class="editable">
+                                        <h3 id="${eduId}-degree" class="text-xl font-bold text-gray-800">${edu.degree}</h3>
+                                        <button class="edit-button edit-ui" onclick="editText('${eduId}-degree')">Edit</button>
+                                    </div>
+                                    <div class="editable">
+                                        <span id="${eduId}-year" class="text-blue-600 font-medium">${edu.year}</span>
+                                        <button class="edit-button edit-ui" onclick="editText('${eduId}-year')">Edit</button>
+                                    </div>
+                                </div>
+                                <div class="editable">
+                                    <h4 id="${eduId}-school" class="text-lg font-medium text-gray-700 mb-2">${edu.school}</h4>
+                                    <button class="edit-button edit-ui" onclick="editText('${eduId}-school')">Edit</button>
+                                </div>
+                                <div class="editable">
+                                    <p id="${eduId}-description" class="text-gray-600 mb-4">${edu.description}</p>
+                                    <button class="edit-button edit-ui" onclick="editText('${eduId}-description')">Edit</button>
+                                </div>
+                                <div class="editable">
+                                    <p id="${eduId}-courses" class="text-gray-600"><span class="font-medium">Key Courses:</span> ${edu.courses}</p>
+                                    <button class="edit-button edit-ui" onclick="editText('${eduId}-courses')">Edit</button>
+                                </div>
+                            </div>
+                        `;
+                        
+                        educationContainer.appendChild(educationItem);
+                    }
+                }
+            }
+        }
+
+        // Resume and Cover Letter functionality
+        function handleResumeUpload(input) {
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    // Save the resume data to localStorage
+                    localStorage.setItem('resumeData', e.target.result);
+                    localStorage.setItem('resumeFileName', file.name);
+                    
+                    showNotification('Resume uploaded successfully!');
+                };
+                
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function handleCoverLetterUpload(input) {
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    // Save the cover letter data to localStorage
+                    localStorage.setItem('coverLetterData', e.target.result);
+                    localStorage.setItem('coverLetterFileName', file.name);
+                    
+                    showNotification('Cover Letter uploaded successfully!');
+                };
+                
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function openResume(event) {
+            event.preventDefault();
+            
+            const resumeData = localStorage.getItem('resumeData');
+            const resumeFileName = localStorage.getItem('resumeFileName');
+            
+            if (resumeData) {
+                // Show document preview modal
+                document.getElementById('documentPreviewTitle').textContent = `Resume: ${resumeFileName || 'Document'}`;
+                
+                // Check file type to determine how to display it
+                if (resumeFileName && resumeFileName.toLowerCase().endsWith('.pdf')) {
+                    document.getElementById('documentPreviewContent').innerHTML = `
+                        <iframe src="${resumeData}" width="100%" height="100%" style="border: none;"></iframe>
+                    `;
+                } else {
+                    // For non-PDF files, provide a download link
+                    document.getElementById('documentPreviewContent').innerHTML = `
+                        <div class="text-center">
+                            <p class="mb-4">Preview not available for this file type.</p>
+                            <a href="${resumeData}" download="${resumeFileName || 'resume'}" class="bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition">
+                                <i class="fas fa-download mr-2"></i> Download Resume
+                            </a>
+                        </div>
+                    `;
+                }
+                
+                document.getElementById('documentPreviewModal').classList.remove('hidden');
+            } else {
+                if (isInCanvaEditor() && document.body.classList.contains('edit-mode')) {
+                    alert("Please upload a resume first.");
+                } else {
+                    // If not in edit mode, simulate a download
+                    showNotification('Resume download started...');
+                }
+            }
+        }
+
+        function openCoverLetter(event) {
+            event.preventDefault();
+            
+            const coverLetterData = localStorage.getItem('coverLetterData');
+            const coverLetterFileName = localStorage.getItem('coverLetterFileName');
+            
+            if (coverLetterData) {
+                // Show document preview modal
+                document.getElementById('documentPreviewTitle').textContent = `Cover Letter: ${coverLetterFileName || 'Document'}`;
+                
+                // Check file type to determine how to display it
+                if (coverLetterFileName && coverLetterFileName.toLowerCase().endsWith('.pdf')) {
+                    document.getElementById('documentPreviewContent').innerHTML = `
+                        <iframe src="${coverLetterData}" width="100%" height="100%" style="border: none;"></iframe>
+                    `;
+                } else {
+                    // For non-PDF files, provide a download link
+                    document.getElementById('documentPreviewContent').innerHTML = `
+                        <div class="text-center">
+                            <p class="mb-4">Preview not available for this file type.</p>
+                            <a href="${coverLetterData}" download="${coverLetterFileName || 'cover-letter'}" class="bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition">
+                                <i class="fas fa-download mr-2"></i> Download Cover Letter
+                            </a>
+                        </div>
+                    `;
+                }
+                
+                document.getElementById('documentPreviewModal').classList.remove('hidden');
+            } else {
+                if (isInCanvaEditor() && document.body.classList.contains('edit-mode')) {
+                    alert("Please upload a cover letter first.");
+                } else {
+                    // If not in edit mode, simulate a download
+                    showNotification('Cover Letter download started...');
+                }
+            }
+        }
+
+        function closeDocumentPreview() {
+            document.getElementById('documentPreviewModal').classList.add('hidden');
+        }
+
         // Load saved content from localStorage
         function loadSavedContent() {
             // Load text content
@@ -1605,6 +1972,9 @@
             
             // Load certificates
             loadCertificates();
+            
+            // Load education
+            loadEducation();
         }
 
         // Show notification
@@ -1646,5 +2016,5 @@
         // Initialize the page
         document.addEventListener('DOMContentLoaded', initPage);
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'965a1933a3ef8a26',t:'MTc1MzU5NzkzNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'965c58dcb4aa89f6',t:'MTc1MzYyMTUxNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
