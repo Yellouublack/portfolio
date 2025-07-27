@@ -530,7 +530,10 @@
     <section id="education" class="py-20 bg-gray-50">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">Education</h2>
+                <div class="editable">
+                    <h2 id="education-title" class="text-3xl font-bold text-gray-800 mb-4">Education</h2>
+                    <button class="edit-button edit-ui" onclick="editText('education-title')">Edit</button>
+                </div>
                 <div class="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
                 <div class="editable">
                     <p id="education-description" class="text-gray-600 max-w-2xl mx-auto">My academic background and qualifications that have shaped my professional journey.</p>
@@ -600,7 +603,10 @@
                 <!-- Certifications -->
                 <div class="mt-16">
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-2xl font-bold text-gray-800">Certifications</h3>
+                        <div class="editable">
+                            <h3 id="certifications-title" class="text-2xl font-bold text-gray-800">Certifications</h3>
+                            <button class="edit-button edit-ui" onclick="editText('certifications-title')">Edit</button>
+                        </div>
                         <button class="add-button edit-ui" onclick="addCertificate()">
                             <i class="fas fa-plus"></i> Add Certificate
                         </button>
@@ -774,7 +780,10 @@
     <section id="resume" class="py-20 bg-gray-50">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">Resume & Cover Letter</h2>
+                <div class="editable">
+                    <h2 id="resume-section-title" class="text-3xl font-bold text-gray-800 mb-4">Resume & Cover Letter</h2>
+                    <button class="edit-button edit-ui" onclick="editText('resume-section-title')">Edit</button>
+                </div>
                 <div class="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
                 <div class="editable">
                     <p id="resume-description" class="text-gray-600 max-w-2xl mx-auto">Download my resume and cover letter to learn more about my professional experience and qualifications.</p>
@@ -788,7 +797,10 @@
                     <div class="text-5xl text-blue-600 mb-6">
                         <i class="fas fa-file-alt"></i>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-4">My Resume</h3>
+                    <div class="editable">
+                        <h3 id="resume-title" class="text-2xl font-bold text-gray-800 mb-4">My Resume</h3>
+                        <button class="edit-button edit-ui" onclick="editText('resume-title')">Edit</button>
+                    </div>
                     <div class="editable">
                         <p id="resume-text" class="text-gray-600 mb-6">A comprehensive overview of my professional experience, skills, and educational background.</p>
                         <button class="edit-button edit-ui" onclick="editText('resume-text')">Edit</button>
@@ -806,7 +818,10 @@
                     <div class="text-5xl text-blue-600 mb-6">
                         <i class="fas fa-envelope-open-text"></i>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Cover Letter</h3>
+                    <div class="editable">
+                        <h3 id="cover-letter-title" class="text-2xl font-bold text-gray-800 mb-4">Cover Letter</h3>
+                        <button class="edit-button edit-ui" onclick="editText('cover-letter-title')">Edit</button>
+                    </div>
                     <div class="editable">
                         <p id="cover-letter-text" class="text-gray-600 mb-6">A personalized letter explaining my interest in your company and how my skills align with your requirements.</p>
                         <button class="edit-button edit-ui" onclick="editText('cover-letter-text')">Edit</button>
@@ -826,7 +841,10 @@
     <section id="contact" class="py-20">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">Get In Touch</h2>
+                <div class="editable">
+                    <h2 id="contact-title" class="text-3xl font-bold text-gray-800 mb-4">Get In Touch</h2>
+                    <button class="edit-button edit-ui" onclick="editText('contact-title')">Edit</button>
+                </div>
                 <div class="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
                 <div class="editable">
                     <p id="contact-description" class="text-gray-600 max-w-2xl mx-auto">Interested in discussing a potential opportunity? Feel free to reach out to me using the contact information below.</p>
@@ -836,14 +854,20 @@
             
             <div class="max-w-3xl mx-auto">
                 <div class="bg-white rounded-lg shadow-lg p-8">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Contact Information</h3>
+                    <div class="editable">
+                        <h3 id="contact-info-title" class="text-2xl font-bold text-gray-800 mb-6">Contact Information</h3>
+                        <button class="edit-button edit-ui" onclick="editText('contact-info-title')">Edit</button>
+                    </div>
                     
                     <div class="flex items-start mb-6">
                         <div class="text-blue-600 text-xl mr-4">
                             <i class="fas fa-envelope"></i>
                         </div>
                         <div>
-                            <h4 class="text-gray-800 font-medium mb-1">Email</h4>
+                            <div class="editable">
+                                <h4 id="contact-email-label" class="text-gray-800 font-medium mb-1">Email</h4>
+                                <button class="edit-button edit-ui" onclick="editText('contact-email-label')">Edit</button>
+                            </div>
                             <div class="editable">
                                 <p id="contact-email" class="text-gray-600">john.doe@example.com</p>
                                 <button class="edit-button edit-ui" onclick="editText('contact-email')">Edit</button>
@@ -856,7 +880,10 @@
                             <i class="fas fa-phone"></i>
                         </div>
                         <div>
-                            <h4 class="text-gray-800 font-medium mb-1">Phone</h4>
+                            <div class="editable">
+                                <h4 id="contact-phone-label" class="text-gray-800 font-medium mb-1">Phone</h4>
+                                <button class="edit-button edit-ui" onclick="editText('contact-phone-label')">Edit</button>
+                            </div>
                             <div class="editable">
                                 <p id="contact-phone" class="text-gray-600">+1 (555) 123-4567</p>
                                 <button class="edit-button edit-ui" onclick="editText('contact-phone')">Edit</button>
@@ -869,7 +896,10 @@
                             <i class="fas fa-map-marker-alt"></i>
                         </div>
                         <div>
-                            <h4 class="text-gray-800 font-medium mb-1">Location</h4>
+                            <div class="editable">
+                                <h4 id="contact-location-label" class="text-gray-800 font-medium mb-1">Location</h4>
+                                <button class="edit-button edit-ui" onclick="editText('contact-location-label')">Edit</button>
+                            </div>
                             <div class="editable">
                                 <p id="contact-location" class="text-gray-600">San Francisco, CA</p>
                                 <button class="edit-button edit-ui" onclick="editText('contact-location')">Edit</button>
@@ -878,7 +908,10 @@
                     </div>
                     
                     <div class="mt-8">
-                        <h4 class="text-gray-800 font-medium mb-4">Connect With Me</h4>
+                        <div class="editable">
+                            <h4 id="contact-social-label" class="text-gray-800 font-medium mb-4">Connect With Me</h4>
+                            <button class="edit-button edit-ui" onclick="editText('contact-social-label')">Edit</button>
+                        </div>
                         <div class="flex space-x-4">
                             <a href="#" class="text-gray-600 hover:text-blue-600 text-xl transition">
                                 <i class="fab fa-linkedin"></i>
@@ -1613,5 +1646,5 @@
         // Initialize the page
         document.addEventListener('DOMContentLoaded', initPage);
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9659eecf36de8a02',t:'MTc1MzU5NjE5OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'965a1933a3ef8a26',t:'MTc1MzU5NzkzNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
