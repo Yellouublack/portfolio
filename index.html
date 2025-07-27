@@ -227,6 +227,9 @@
         .nav-link {
             position: relative;
         }
+        .button-text {
+            position: relative;
+        }
     </style>
 </head>
 <body>
@@ -344,8 +347,14 @@
                     <button class="edit-button edit-ui" onclick="editText('hero-description')">Edit</button>
                 </div>
                 <div class="flex justify-center space-x-4">
-                    <a href="#contact" class="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition">Contact Me</a>
-                    <a href="#projects" class="border-2 border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-blue-600 transition">View Projects</a>
+                    <div class="editable">
+                        <a href="#contact" id="hero-contact-btn" class="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition">Contact Me</a>
+                        <button class="edit-button edit-ui" onclick="editText('hero-contact-btn')">Edit</button>
+                    </div>
+                    <div class="editable">
+                        <a href="#projects" id="hero-projects-btn" class="border-2 border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-blue-600 transition">View Projects</a>
+                        <button class="edit-button edit-ui" onclick="editText('hero-projects-btn')">Edit</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -429,9 +438,12 @@
                             <h3 id="skills-programming-title" class="text-xl font-bold text-gray-800">Programming Languages</h3>
                             <button class="edit-button edit-ui" onclick="editText('skills-programming-title')">Edit</button>
                         </div>
-                        <button class="add-button edit-ui" onclick="addSkill('programming')">
-                            <i class="fas fa-plus"></i> Add Skill
-                        </button>
+                        <div class="editable">
+                            <button id="add-programming-btn" class="add-button" onclick="addSkill('programming')">
+                                <i class="fas fa-plus"></i> Add Skill
+                            </button>
+                            <button class="edit-button edit-ui" onclick="editText('add-programming-btn')">Edit</button>
+                        </div>
                     </div>
                     <div id="programming-skills" class="flex flex-wrap">
                         <div class="skill-tag" data-category="programming">
@@ -463,9 +475,12 @@
                             <h3 id="skills-frameworks-title" class="text-xl font-bold text-gray-800">Frameworks & Libraries</h3>
                             <button class="edit-button edit-ui" onclick="editText('skills-frameworks-title')">Edit</button>
                         </div>
-                        <button class="add-button edit-ui" onclick="addSkill('frameworks')">
-                            <i class="fas fa-plus"></i> Add Skill
-                        </button>
+                        <div class="editable">
+                            <button id="add-frameworks-btn" class="add-button" onclick="addSkill('frameworks')">
+                                <i class="fas fa-plus"></i> Add Skill
+                            </button>
+                            <button class="edit-button edit-ui" onclick="editText('add-frameworks-btn')">Edit</button>
+                        </div>
                     </div>
                     <div id="frameworks-skills" class="flex flex-wrap">
                         <div class="skill-tag" data-category="frameworks">
@@ -497,9 +512,12 @@
                             <h3 id="skills-database-title" class="text-xl font-bold text-gray-800">Database Technologies</h3>
                             <button class="edit-button edit-ui" onclick="editText('skills-database-title')">Edit</button>
                         </div>
-                        <button class="add-button edit-ui" onclick="addSkill('database')">
-                            <i class="fas fa-plus"></i> Add Skill
-                        </button>
+                        <div class="editable">
+                            <button id="add-database-btn" class="add-button" onclick="addSkill('database')">
+                                <i class="fas fa-plus"></i> Add Skill
+                            </button>
+                            <button class="edit-button edit-ui" onclick="editText('add-database-btn')">Edit</button>
+                        </div>
                     </div>
                     <div id="database-skills" class="flex flex-wrap">
                         <div class="skill-tag" data-category="database">
@@ -527,9 +545,12 @@
                             <h3 id="skills-tools-title" class="text-xl font-bold text-gray-800">Tools & Technologies</h3>
                             <button class="edit-button edit-ui" onclick="editText('skills-tools-title')">Edit</button>
                         </div>
-                        <button class="add-button edit-ui" onclick="addSkill('tools')">
-                            <i class="fas fa-plus"></i> Add Skill
-                        </button>
+                        <div class="editable">
+                            <button id="add-tools-btn" class="add-button" onclick="addSkill('tools')">
+                                <i class="fas fa-plus"></i> Add Skill
+                            </button>
+                            <button class="edit-button edit-ui" onclick="editText('add-tools-btn')">Edit</button>
+                        </div>
                     </div>
                     <div id="tools-skills" class="flex flex-wrap">
                         <div class="skill-tag" data-category="tools">
@@ -561,9 +582,12 @@
                             <h3 id="skills-other-title" class="text-xl font-bold text-gray-800">Other Skills</h3>
                             <button class="edit-button edit-ui" onclick="editText('skills-other-title')">Edit</button>
                         </div>
-                        <button class="add-button edit-ui" onclick="addSkill('other')">
-                            <i class="fas fa-plus"></i> Add Skill
-                        </button>
+                        <div class="editable">
+                            <button id="add-other-btn" class="add-button" onclick="addSkill('other')">
+                                <i class="fas fa-plus"></i> Add Skill
+                            </button>
+                            <button class="edit-button edit-ui" onclick="editText('add-other-btn')">Edit</button>
+                        </div>
                     </div>
                     <div id="other-skills" class="flex flex-wrap">
                         <div class="skill-tag" data-category="other">
@@ -606,9 +630,12 @@
                     <button class="edit-button edit-ui" onclick="editText('education-description')">Edit</button>
                 </div>
                 <div class="mt-6 edit-ui">
-                    <button class="add-button" onclick="addEducation()">
-                        <i class="fas fa-plus"></i> Add Education
-                    </button>
+                    <div class="editable">
+                        <button id="add-education-btn" class="add-button" onclick="addEducation()">
+                            <i class="fas fa-plus"></i> Add Education
+                        </button>
+                        <button class="edit-button edit-ui" onclick="editText('add-education-btn')">Edit</button>
+                    </div>
                 </div>
             </div>
             
@@ -686,9 +713,12 @@
                             <h3 id="certifications-title" class="text-2xl font-bold text-gray-800">Certifications</h3>
                             <button class="edit-button edit-ui" onclick="editText('certifications-title')">Edit</button>
                         </div>
-                        <button class="add-button edit-ui" onclick="addCertificate()">
-                            <i class="fas fa-plus"></i> Add Certificate
-                        </button>
+                        <div class="editable">
+                            <button id="add-certificate-btn" class="add-button" onclick="addCertificate()">
+                                <i class="fas fa-plus"></i> Add Certificate
+                            </button>
+                            <button class="edit-button edit-ui" onclick="editText('add-certificate-btn')">Edit</button>
+                        </div>
                     </div>
                     
                     <div id="certificates-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -746,9 +776,12 @@
                     <button class="edit-button edit-ui" onclick="editText('projects-description')">Edit</button>
                 </div>
                 <div class="mt-6 edit-ui">
-                    <button class="add-button" onclick="addProject()">
-                        <i class="fas fa-plus"></i> Add New Project
-                    </button>
+                    <div class="editable">
+                        <button id="add-project-btn" class="add-button" onclick="addProject()">
+                            <i class="fas fa-plus"></i> Add New Project
+                        </button>
+                        <button class="edit-button edit-ui" onclick="editText('add-project-btn')">Edit</button>
+                    </div>
                 </div>
             </div>
             
@@ -892,9 +925,12 @@
                             <button class="edit-button edit-ui" onclick="editText('resume-link')">Edit</button>
                         </div>
                         <div class="ml-4 edit-ui file-upload-container">
-                            <button class="bg-green-600 text-white px-4 py-3 rounded-full font-semibold hover:bg-green-700 transition">
-                                <i class="fas fa-upload mr-2"></i> Upload
-                            </button>
+                            <div class="editable">
+                                <button id="resume-upload-btn" class="bg-green-600 text-white px-4 py-3 rounded-full font-semibold hover:bg-green-700 transition">
+                                    <i class="fas fa-upload mr-2"></i> Upload
+                                </button>
+                                <button class="edit-button edit-ui" onclick="editText('resume-upload-btn')">Edit</button>
+                            </div>
                             <input type="file" id="resume-upload" accept=".pdf,.doc,.docx" onchange="handleResumeUpload(this)">
                         </div>
                     </div>
@@ -921,9 +957,12 @@
                             <button class="edit-button edit-ui" onclick="editText('cover-letter-link')">Edit</button>
                         </div>
                         <div class="ml-4 edit-ui file-upload-container">
-                            <button class="bg-green-600 text-white px-4 py-3 rounded-full font-semibold hover:bg-green-700 transition">
-                                <i class="fas fa-upload mr-2"></i> Upload
-                            </button>
+                            <div class="editable">
+                                <button id="cover-letter-upload-btn" class="bg-green-600 text-white px-4 py-3 rounded-full font-semibold hover:bg-green-700 transition">
+                                    <i class="fas fa-upload mr-2"></i> Upload
+                                </button>
+                                <button class="edit-button edit-ui" onclick="editText('cover-letter-upload-btn')">Edit</button>
+                            </div>
                             <input type="file" id="cover-letter-upload" accept=".pdf,.doc,.docx" onchange="handleCoverLetterUpload(this)">
                         </div>
                     </div>
@@ -1990,86 +2029,4 @@
             } else {
                 if (isInCanvaEditor() && document.body.classList.contains('edit-mode')) {
                     alert("Please upload a cover letter first.");
-                } else {
-                    // If not in edit mode, simulate a download
-                    showNotification('Cover Letter download started...');
-                }
-            }
-        }
-
-        function closeDocumentPreview() {
-            document.getElementById('documentPreviewModal').classList.add('hidden');
-        }
-
-        // Load saved content from localStorage
-        function loadSavedContent() {
-            // Load text content
-            document.querySelectorAll('[id]').forEach(element => {
-                const savedText = localStorage.getItem(element.id);
-                if (savedText && !element.id.endsWith('-image')) {
-                    element.innerText = savedText;
-                }
-            });
-            
-            // Load images
-            document.querySelectorAll('[id$="-image"]').forEach(element => {
-                const savedUrl = localStorage.getItem(element.id);
-                if (savedUrl) {
-                    element.src = savedUrl;
-                }
-            });
-            
-            // Load skills
-            loadSkills();
-            
-            // Load projects
-            loadProjects();
-            
-            // Load certificates
-            loadCertificates();
-            
-            // Load education
-            loadEducation();
-        }
-
-        // Show notification
-        function showNotification(message) {
-            // Create notification element
-            const notification = document.createElement('div');
-            notification.className = 'fixed bottom-6 left-6 bg-green-500 text-white px-4 py-2 rounded-md shadow-lg z-50';
-            notification.textContent = message;
-            
-            // Add to body
-            document.body.appendChild(notification);
-            
-            // Remove after 3 seconds
-            setTimeout(() => {
-                notification.remove();
-            }, 3000);
-        }
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Close mobile menu if open
-                    document.getElementById('mobile-menu').classList.add('hidden');
-                }
-            });
-        });
-
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', initPage);
-    </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'965c6e6de2bc8a24',t:'MTc1MzYyMjM5Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
-</html>
+                <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'965c9bd342768a08',t:'MTc1MzYyNDI1Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
