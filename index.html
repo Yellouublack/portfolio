@@ -73,7 +73,10 @@
             display: none;
         }
         .is-editor .edit-ui {
-            display: block;
+            display: none; /* Hidden by default, shown only in edit mode */
+        }
+        .is-editor.edit-mode .edit-ui {
+            display: block; /* Show in edit mode */
         }
         .edit-instructions {
             position: fixed;
@@ -1028,10 +1031,9 @@
     <script>
         // Check if we're in Canva editor or published site
         function isInCanvaEditor() {
-            // In a real implementation, Canva would provide a more reliable way to detect this
-            // For this demo, we'll use a URL parameter to simulate being in the editor
-            return window.location.href.includes('editor=true') || 
-                   window.location.search.includes('editor=true') ||
+            // Check if URL ends with ?editor=true
+            return window.location.href.endsWith('?editor=true') || 
+                   window.location.search === '?editor=true' ||
                    window.location.hostname === 'localhost' || 
                    window.location.hostname === '127.0.0.1';
         }
@@ -1603,5 +1605,5 @@
         // Initialize the page
         document.addEventListener('DOMContentLoaded', initPage);
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96597f3f654a8a26',t:'MTc1MzU5MTYyOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96598ec660e98a1e',t:'MTc1MzU5MjI2NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
