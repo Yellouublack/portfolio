@@ -224,6 +224,9 @@
             cursor: pointer;
             display: block;
         }
+        .nav-link {
+            position: relative;
+        }
     </style>
 </head>
 <body>
@@ -254,13 +257,34 @@
                 <button class="edit-button edit-ui" onclick="editText('logo-text')">Edit</button>
             </div>
             <div class="hidden md:flex space-x-8">
-                <a href="#home" class="text-gray-800 hover:text-blue-600 transition">Home</a>
-                <a href="#about" class="text-gray-800 hover:text-blue-600 transition">About</a>
-                <a href="#skills" class="text-gray-800 hover:text-blue-600 transition">Skills</a>
-                <a href="#education" class="text-gray-800 hover:text-blue-600 transition">Education</a>
-                <a href="#projects" class="text-gray-800 hover:text-blue-600 transition">Projects</a>
-                <a href="#resume" class="text-gray-800 hover:text-blue-600 transition">Resume</a>
-                <a href="#contact" class="text-gray-800 hover:text-blue-600 transition">Contact</a>
+                <div class="editable nav-link">
+                    <a href="#home" id="nav-home" class="text-gray-800 hover:text-blue-600 transition">Home</a>
+                    <button class="edit-button edit-ui" onclick="editText('nav-home')">Edit</button>
+                </div>
+                <div class="editable nav-link">
+                    <a href="#about" id="nav-about" class="text-gray-800 hover:text-blue-600 transition">About</a>
+                    <button class="edit-button edit-ui" onclick="editText('nav-about')">Edit</button>
+                </div>
+                <div class="editable nav-link">
+                    <a href="#skills" id="nav-skills" class="text-gray-800 hover:text-blue-600 transition">Skills</a>
+                    <button class="edit-button edit-ui" onclick="editText('nav-skills')">Edit</button>
+                </div>
+                <div class="editable nav-link">
+                    <a href="#education" id="nav-education" class="text-gray-800 hover:text-blue-600 transition">Education</a>
+                    <button class="edit-button edit-ui" onclick="editText('nav-education')">Edit</button>
+                </div>
+                <div class="editable nav-link">
+                    <a href="#projects" id="nav-projects" class="text-gray-800 hover:text-blue-600 transition">Projects</a>
+                    <button class="edit-button edit-ui" onclick="editText('nav-projects')">Edit</button>
+                </div>
+                <div class="editable nav-link">
+                    <a href="#resume" id="nav-resume" class="text-gray-800 hover:text-blue-600 transition">Resume</a>
+                    <button class="edit-button edit-ui" onclick="editText('nav-resume')">Edit</button>
+                </div>
+                <div class="editable nav-link">
+                    <a href="#contact" id="nav-contact" class="text-gray-800 hover:text-blue-600 transition">Contact</a>
+                    <button class="edit-button edit-ui" onclick="editText('nav-contact')">Edit</button>
+                </div>
             </div>
             <div class="md:hidden">
                 <button id="menu-toggle" class="text-gray-800 focus:outline-none">
@@ -271,13 +295,34 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="md:hidden hidden bg-white w-full">
             <div class="container mx-auto px-6 py-3 flex flex-col space-y-4">
-                <a href="#home" class="text-gray-800 hover:text-blue-600 transition">Home</a>
-                <a href="#about" class="text-gray-800 hover:text-blue-600 transition">About</a>
-                <a href="#skills" class="text-gray-800 hover:text-blue-600 transition">Skills</a>
-                <a href="#education" class="text-gray-800 hover:text-blue-600 transition">Education</a>
-                <a href="#projects" class="text-gray-800 hover:text-blue-600 transition">Projects</a>
-                <a href="#resume" class="text-gray-800 hover:text-blue-600 transition">Resume</a>
-                <a href="#contact" class="text-gray-800 hover:text-blue-600 transition">Contact</a>
+                <div class="editable">
+                    <a href="#home" id="mobile-nav-home" class="text-gray-800 hover:text-blue-600 transition">Home</a>
+                    <button class="edit-button edit-ui" onclick="editText('mobile-nav-home')">Edit</button>
+                </div>
+                <div class="editable">
+                    <a href="#about" id="mobile-nav-about" class="text-gray-800 hover:text-blue-600 transition">About</a>
+                    <button class="edit-button edit-ui" onclick="editText('mobile-nav-about')">Edit</button>
+                </div>
+                <div class="editable">
+                    <a href="#skills" id="mobile-nav-skills" class="text-gray-800 hover:text-blue-600 transition">Skills</a>
+                    <button class="edit-button edit-ui" onclick="editText('mobile-nav-skills')">Edit</button>
+                </div>
+                <div class="editable">
+                    <a href="#education" id="mobile-nav-education" class="text-gray-800 hover:text-blue-600 transition">Education</a>
+                    <button class="edit-button edit-ui" onclick="editText('mobile-nav-education')">Edit</button>
+                </div>
+                <div class="editable">
+                    <a href="#projects" id="mobile-nav-projects" class="text-gray-800 hover:text-blue-600 transition">Projects</a>
+                    <button class="edit-button edit-ui" onclick="editText('mobile-nav-projects')">Edit</button>
+                </div>
+                <div class="editable">
+                    <a href="#resume" id="mobile-nav-resume" class="text-gray-800 hover:text-blue-600 transition">Resume</a>
+                    <button class="edit-button edit-ui" onclick="editText('mobile-nav-resume')">Edit</button>
+                </div>
+                <div class="editable">
+                    <a href="#contact" id="mobile-nav-contact" class="text-gray-800 hover:text-blue-600 transition">Contact</a>
+                    <button class="edit-button edit-ui" onclick="editText('mobile-nav-contact')">Edit</button>
+                </div>
             </div>
         </div>
     </nav>
@@ -1264,6 +1309,16 @@
                 
                 // Show success message
                 showNotification('Text updated successfully!');
+                
+                // If we're updating a navigation item, also update the mobile version
+                if (currentTextId.startsWith('nav-')) {
+                    const mobileId = 'mobile-' + currentTextId;
+                    const mobileElement = document.getElementById(mobileId);
+                    if (mobileElement) {
+                        mobileElement.innerText = newText;
+                        localStorage.setItem(mobileId, newText);
+                    }
+                }
             }
         }
 
@@ -2016,5 +2071,5 @@
         // Initialize the page
         document.addEventListener('DOMContentLoaded', initPage);
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'965c58dcb4aa89f6',t:'MTc1MzYyMTUxNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'965c6e6de2bc8a24',t:'MTc1MzYyMjM5Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
