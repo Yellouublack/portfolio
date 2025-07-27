@@ -230,9 +230,37 @@
         .button-text {
             position: relative;
         }
+        /* Notification styles */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #10b981;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Make sure edit button is visible */
+        #edit-toggle-container {
+            display: block !important;
+        }
     </style>
 </head>
 <body>
+    <!-- Notification -->
+    <div id="notification" class="notification">
+        <span id="notification-message"></span>
+    </div>
+
     <!-- Editing Instructions -->
     <div class="edit-instructions edit-ui" id="editInstructions">
         <button class="edit-instructions-toggle" id="instructionsToggle">
@@ -364,7 +392,10 @@
     <section id="about" class="py-20 bg-gray-50">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">About Me</h2>
+                <div class="editable">
+                    <h2 id="about-section-title" class="text-3xl font-bold text-gray-800 mb-4">About Me</h2>
+                    <button class="edit-button edit-ui" onclick="editText('about-section-title')">Edit</button>
+                </div>
                 <div class="w-24 h-1 bg-blue-600 mx-auto"></div>
             </div>
             <div class="max-w-3xl mx-auto text-center">
@@ -423,7 +454,10 @@
     <section id="skills" class="py-20">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">Technical Skills</h2>
+                <div class="editable">
+                    <h2 id="skills-section-title" class="text-3xl font-bold text-gray-800 mb-4">Technical Skills</h2>
+                    <button class="edit-button edit-ui" onclick="editText('skills-section-title')">Edit</button>
+                </div>
                 <div class="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
                 <div class="editable">
                     <p id="skills-description" class="text-gray-600 max-w-2xl mx-auto">My technical expertise and proficiency in various programming languages, frameworks, and tools.</p>
@@ -769,7 +803,10 @@
     <section id="projects" class="py-20">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">My Projects</h2>
+                <div class="editable">
+                    <h2 id="projects-section-title" class="text-3xl font-bold text-gray-800 mb-4">My Projects</h2>
+                    <button class="edit-button edit-ui" onclick="editText('projects-section-title')">Edit</button>
+                </div>
                 <div class="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
                 <div class="editable">
                     <p id="projects-description" class="text-gray-600 max-w-2xl mx-auto">A showcase of my technical projects, including both professional work and academic research.</p>
@@ -1105,7 +1142,7 @@
     </footer>
 
     <!-- Edit Mode Toggle Button -->
-    <div id="edit-toggle-container" class="fixed bottom-6 right-6 z-50 edit-ui">
+    <div id="edit-toggle-container" class="fixed bottom-6 right-6 z-50">
         <button id="edit-mode-toggle" class="bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 transition">
             <i class="fas fa-edit text-xl"></i>
         </button>
@@ -1293,18 +1330,16 @@
         // Edit mode toggle
         let editMode = false;
         
-        if (document.getElementById('edit-mode-toggle')) {
-            document.getElementById('edit-mode-toggle').addEventListener('click', function() {
-                editMode = !editMode;
-                document.body.classList.toggle('edit-mode', editMode);
-                
-                // Save edit mode state to localStorage
-                localStorage.setItem('editMode', editMode);
-                
-                // Update button icon
-                this.innerHTML = editMode ? '<i class="fas fa-eye text-xl"></i>' : '<i class="fas fa-edit text-xl"></i>';
-            });
-        }
+        document.getElementById('edit-mode-toggle').addEventListener('click', function() {
+            editMode = !editMode;
+            document.body.classList.toggle('edit-mode', editMode);
+            
+            // Save edit mode state to localStorage
+            localStorage.setItem('editMode', editMode);
+            
+            // Update button icon
+            this.innerHTML = editMode ? '<i class="fas fa-eye text-xl"></i>' : '<i class="fas fa-edit text-xl"></i>';
+        });
 
         // Instructions toggle
         if (document.getElementById('instructionsToggle')) {
@@ -2002,31 +2037,4 @@
             event.preventDefault();
             
             const coverLetterData = localStorage.getItem('coverLetterData');
-            const coverLetterFileName = localStorage.getItem('coverLetterFileName');
-            
-            if (coverLetterData) {
-                // Show document preview modal
-                document.getElementById('documentPreviewTitle').textContent = `Cover Letter: ${coverLetterFileName || 'Document'}`;
-                
-                // Check file type to determine how to display it
-                if (coverLetterFileName && coverLetterFileName.toLowerCase().endsWith('.pdf')) {
-                    document.getElementById('documentPreviewContent').innerHTML = `
-                        <iframe src="${coverLetterData}" width="100%" height="100%" style="border: none;"></iframe>
-                    `;
-                } else {
-                    // For non-PDF files, provide a download link
-                    document.getElementById('documentPreviewContent').innerHTML = `
-                        <div class="text-center">
-                            <p class="mb-4">Preview not available for this file type.</p>
-                            <a href="${coverLetterData}" download="${coverLetterFileName || 'cover-letter'}" class="bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition">
-                                <i class="fas fa-download mr-2"></i> Download Cover Letter
-                            </a>
-                        </div>
-                    `;
-                }
-                
-                document.getElementById('documentPreviewModal').classList.remove('hidden');
-            } else {
-                if (isInCanvaEditor() && document.body.classList.contains('edit-mode')) {
-                    alert("Please upload a cover letter first.");
-                <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'965c9bd342768a08',t:'MTc1MzYyNDI1Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+            const cover<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'965caecb01138afa',t:'MTc1MzYyNTAzMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
